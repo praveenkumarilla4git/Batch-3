@@ -1,4 +1,5 @@
 a=10
 b=20
-sum=a+b
-print (f"Addition of 2 numbers {a} and {b} is {sum}")
+c = 80
+sum=a+b+c
+print (f"Addition of 3 numbers {a}, {b} and {c} is {sum}")
