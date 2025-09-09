@@ -1,0 +1,77 @@
+Few Decades:
+1. Waterfall
+Client --> Requirements
+Company --> share, 
+
+2 years
+Requirements --> Development --> Testing --> Client
+linear
+
+
+Agile:
+e
+Developers:
+Sprints wise: 
+Sprint 1 --> Username
+Sprint 2 --> Password 
+Sprint 3 --> Forgot password + Username Bugs fix
+Sprint 4 --> Submit Button
+
+Phase 1
+
+Testers:
+Sprint 1 --> Nothing
+Sprint 2 --> Username
+Bugs list --> 70 --> 40  bugs --> 30 invalid bugs
+Sprint 3 --> Password Bug list 100 --> 72 valid 30 invalid
+
+Phase 2
+
+Version 0
+
+
+
+
+Login Page:
+	
+
+DevOps = Developers + Testers + Operations within same day or within alternate
+DEV Environment Win2000 Dave
+QA Environment Win2007 Tania
+Pre-Prod Environment Win2011 Peter
+Prod Environment mobile Mathew
+
+print(Helloworld)
+print('Hello World')
+
+
+
+
+Forget password
+14 days:
+
+Development --> testing --> Bug list --> Developers --> 
+
+
+
+DevOps --> 
+DEV Env
+QA Env
+PreProd Env
+Prod Env
+Operations <--> Client 
+
+Cloud
+Version Controlled System
+Sonar 
+Jenkins
+Ansible 
+K8
+Grafana
+
+
+DevOps is a methodologies/process which facilitates Development, Testing and Operations teams to work in almost the same environments and achieve the smoother, faster feedback oriented quality product or deployments to the end users within same day using multiple automated tools.
+
+
+
+
