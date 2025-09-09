@@ -1,0 +1,26 @@
+Git merge conflict:
+
+normal folder --> print.py
+print("Hello World")
+git init --> Working Directory
+git status 
+red color --> untracked files
+git add . or git add <filename>
+file will be moved into stagging area
+git commit -m "commit message" --> git local repo
+git push
+git push remote -u origin main
+
+git config --global email username <set>
+git remote repo
+colloaborators can access 
+
+print("Hello World")
+a = 90
+b = 80
+suresh --> clone/git pull (<same file name>) --> git push
+aruna --> clone/git pull (<same file name>) --> git commit
+print("Hello World")
+b = 90
+
+so now, when we will try to merge 2 different branches which has same filename and updating the same lines of code we will run into the merge conflicts.

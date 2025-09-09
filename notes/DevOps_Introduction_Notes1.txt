@@ -1,0 +1,28 @@
+Day 1: Introduction to Waterfall, Agile and Devops
+
+The Waterfall model is a linear, sequential approach to software development, while Agile methodology promotes iterative, incremental progress with frequent collaboration and adaptation. DevOps bridges development and operations to automate processes, enhance communication, and accelerate delivery, making it a modern solution for many limitations found in both Waterfall and Agile models.
+
+Waterfall Model
+The Waterfall model divides projects into distinct phases: requirement gathering, design, implementation, testing, deployment, and maintenance.
+Each phase must be completed before moving to the next, with progress flowing in one direction like a waterfall.
+Changes are difficult to integrate once a phase is finished, making the model suitable for projects with clearly defined requirements and minimal expected changes.
+
+Agile Methodology
+Agile is built on flexibility, iterative cycles (sprints), and regular stakeholder engagement.
+The process is adaptive, allowing teams to change course in response to feedback and rapid changes in requirements.
+Agile emphasizes working product delivery in short increments, frequent reassessment, and continuous improvement, which helps address and reduce risks early.
+
+DevOps Integration and Solution
+DevOps evolved as a response to the need for speed, reliability, and collaboration between development and operations teams.
+It leverages automation (especially CI/CD), monitoring, and unified accountability to ensure faster, more reliable software delivery.
+DevOps eliminates traditional barriers, implementing continuous delivery and integration, reducing deployment times, and increasing system stability.
+
+
+Correlation and Modern Solution
+Waterfall’s rigid structure often led to delays and missed opportunities for improvement, while Agile’s adaptability improved responsiveness but sometimes lacked deployment speed and operational alignment.
+DevOps complements and enhances Agile by automating workflows and ensuring operational alignment, helping organizations deliver software rapidly, with fewer errors and better collaboration.
+
+In summary, DevOps provides a solution by combining Agile’s iterative development with robust, automated operations, ensuring efficient collaboration, reliability, and rapid delivery in modern software environments.
+
+
+
