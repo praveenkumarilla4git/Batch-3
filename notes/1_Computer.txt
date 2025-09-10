@@ -1,0 +1,13 @@
+1. Computer
+
+A computer is an electronic device that takes input (data), processes it using instructions (programs), and produces output (information).
+Example: Laptop, desktop, or even a server.
+
+2. IP-enabled device
+
+An IP-enabled device is any device that can connect to a network (like the Internet or a local network) using an IP address (Internet Protocol address). This allows it to send and receive data.
+Example: Smartphones, computers, printers, routers, CCTV cameras — all these become IP-enabled when assigned an IP address.
+
+A computer is a machine that processes data.
+
+An IP-enabled device is any machine (including computers) that can communicate over a network using an IP address.
