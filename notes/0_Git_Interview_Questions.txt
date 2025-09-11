@@ -1,0 +1,61 @@
+Git Interview Questions and Answers
+Q1: What is Git?
+A1: Git is a distributed version control system (DVCS) that helps developers track changes in source code and collaborate efficiently. Unlike centralized systems, each developer’s machine has a full copy of the repository, including its history, making Git fast, resilient, and suitable for both small and large projects.
+
+Q2: What is a repository in Git?
+A2: A repository (repo) is a storage space where Git tracks a project’s files, their versions, and history. A Git repository can be local (on your machine) or remote (hosted on a server like GitHub, GitLab, or Bitbucket).
+
+Q3: How do you create a new Git repository?
+A3: Navigate to the project folder in the terminal and run:
+
+git init → Initializes a new empty repository in the current directory.
+
+Alternatively, git clone <repo-url> → Creates a copy of an existing remote repository with all history and branches.
+
+Q4: What is the difference between Git and GitHub?
+A4: Git is the version control technology that manages code and history locally, while GitHub is a web-based platform that hosts Git repositories remotely and adds collaboration features such as pull requests, code reviews, and issue tracking. Other Git hosting platforms include GitLab and Bitbucket.
+
+Q5: What is the purpose of the "git clone" command?
+A5: git clone <repo-url> is used to download a complete local copy of a remote repository along with its commit history, branches, and tags. This allows you to contribute or work offline while staying connected to the central project.
+
+Q6: How do you commit changes in Git?
+A6: Committing involves two steps:
+
+Stage the changes using git add <filename> or git add . (to add all changes).
+
+Create a commit with git commit -m "Meaningful message".
+
+A good commit message should be concise but descriptive, helping collaborators understand the purpose of the changes.
+
+Q7: What is the difference between "git pull" and "git fetch"?
+A7:
+
+git fetch: Downloads the latest changes from the remote repository to your local tracking branches without modifying your working directory.
+
+git pull: Runs git fetch followed by git merge (or git rebase if configured). It updates your local branch with the latest changes from its remote counterpart.
+
+In short, fetch is safer for inspection, while pull directly updates your branch.
+
+Q8: How do you resolve merge conflicts in Git?
+A8: Merge conflicts occur when Git cannot automatically reconcile changes between branches. To resolve:
+
+Open the conflicting file(s) and manually decide which changes to keep or combine.
+
+Stage the resolved file using git add <file>.
+
+Complete the merge with git commit.
+
+Tools like git mergetool or IDE merge conflict resolution can simplify this process.
+
+Q9: How do you revert a commit in Git?
+A9: Use git revert <commit-hash> to create a new commit that undoes the changes introduced by the specified commit. This is useful for shared repositories because history remains intact.
+
+For local, unshared history, git reset can also be used to move the branch pointer to an earlier state, but it rewrites history and should be used with caution.
+
+Q10: How do you push changes to a remote Git repository?
+A10: Use the command:
+git push <remote-name> <branch-name>
+Example: git push origin main pushes your local commits in the main branch to the origin remote.
+
+If it’s the first push of a new branch, use:
+git push -u origin <branch-name> to set upstream tracking, allowing simpler future pushes.
