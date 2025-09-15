@@ -1,0 +1,73 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" version="28.2.1">
+  <diagram name="Page-1" id="y-BOeMATzjwb4VCk9Nun">
+    <mxGraphModel dx="1042" dy="1662" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="gLdjaeURrb0WV8xLbamN-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gLdjaeURrb0WV8xLbamN-1" target="gLdjaeURrb0WV8xLbamN-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-1" value="School" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="-940" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gLdjaeURrb0WV8xLbamN-2" target="gLdjaeURrb0WV8xLbamN-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-2" value="Marks Management" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="310" y="-940" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gLdjaeURrb0WV8xLbamN-4" target="gLdjaeURrb0WV8xLbamN-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-4" value="Python" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="-940" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gLdjaeURrb0WV8xLbamN-6" target="gLdjaeURrb0WV8xLbamN-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-6" value="Students" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="-800" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gLdjaeURrb0WV8xLbamN-8" target="gLdjaeURrb0WV8xLbamN-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-8" value="Class Name" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="310" y="-800" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gLdjaeURrb0WV8xLbamN-10" target="gLdjaeURrb0WV8xLbamN-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-10" value="Exams --&amp;gt; 1st Unit" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="110" y="-800" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gLdjaeURrb0WV8xLbamN-12" target="gLdjaeURrb0WV8xLbamN-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-12" value="Subjects" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="110" y="-660" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gLdjaeURrb0WV8xLbamN-14" target="gLdjaeURrb0WV8xLbamN-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-14" value="Total" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="310" y="-660" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gLdjaeURrb0WV8xLbamN-16" target="gLdjaeURrb0WV8xLbamN-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-16" value="Percentage" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="-660" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="gLdjaeURrb0WV8xLbamN-20" target="gLdjaeURrb0WV8xLbamN-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-20" value="Ranking" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="-520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="gLdjaeURrb0WV8xLbamN-22" value="MySQL/Excel" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="310" y="-520" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
