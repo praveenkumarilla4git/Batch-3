@@ -1,0 +1,18 @@
+create an example.txt file
+Ans: touch example.txt
+
+write "Hi Hello, How are you?" into the file
+cat > Hi Hello, How are you? <Enter>
+<Ctrl + D>
+
+now to check if the text given is stored in the file or not 
+you can check with the command cat example.txt
+
+now, apply grep in this file.
+meaning find the Hi word is present in the example.txt or not
+
+grep "Hi" example.txt --- this command will print the whole line which has "Hi" in it in the example.txt
+
+If you just want to check whether "Hi" exists in the file (without printing the line), you can use:
+
+grep -q "Hi" example.txt && echo "Found" || echo "Not Found"
