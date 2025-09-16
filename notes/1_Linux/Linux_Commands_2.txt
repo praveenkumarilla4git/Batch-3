@@ -1,0 +1,75 @@
+### Linux Command Summary 🐧
+
+This document provides a simple overview of essential Linux commands for a quick review.
+
+---
+
+### Basic File and Directory Commands
+
+* `uname`: Displays system information. For example, `uname` might output `Linux`.
+* `pwd`: Shows your current location. If you are in your home directory, `pwd` might show `/home/user`.
+* `ls`: Lists files and folders. `ls -l` shows more details like permissions and size.
+* `cd`: Changes your current folder. `cd Documents` moves you to the Documents folder.
+* `touch <file-name>`: Creates a new empty file, like `touch notes.txt`.
+* `mkdir <folder-name>`: Creates a new folder, like `mkdir reports`.
+* `rmdir <folder-name>`: Deletes an empty folder.
+* `rm -r <folder-name>`: Deletes a folder and all its contents.
+* `cp <source> <destination>`: Copies a file. `cp report.txt report_copy.txt` creates a copy.
+* `mv <source> <destination>`: Moves or renames a file. `mv old_file.txt new_file.txt` renames the file.
+* `cat <file-name>`: Shows the contents of a file. `cat my_notes.txt` displays the text inside it.
+
+---
+
+### Text Processing Commands
+
+* `grep <pattern> <file-name>`: Searches for a pattern in a file. `grep "error" log.txt` finds all lines with the word "error".
+* `cut`: Extracts sections from lines. For example, `cut -f1 -d',' file.csv` gets the first column from a comma-separated file.
+* `awk`: A powerful text-processing tool. For instance, `awk '{print $2}' file.txt` prints the second word of each line.
+* **Piping (`|`)**: Connects commands. `ls | grep .txt` lists all files and then filters the list to show only those ending in `.txt`.
+* `echo`: Prints text to the screen. `echo "Hello, world!"` will display the phrase.
+* `head <file-name>`: Shows the top 10 lines. `head -n 5 file.txt` shows the first 5 lines.
+* `tail <file-name>`: Shows the last 10 lines.
+
+---
+
+### File Transfer
+
+* `curl`: A tool to transfer data to or from a server. It can be used to download files or test APIs.
+* `wget`: A non-interactive tool for downloading files from the web.
+
+---
+
+### The Vim Editor
+
+Vim is a powerful text editor. When you open a file with `vim <file-name>`, you are in **Escape Mode**.
+
+**Command Mode (after pressing `:`)**
+* `:wq`: **w**rite and **q**uit. Saves and exits.
+* `:q!`: **q**uit without saving.
+* `:set nu`: Displays line numbers.
+* `:%s/old/new/g`: Replaces all occurrences of "old" with "new" in the entire file.
+
+**Escape Mode**
+* `i`: Enters Insert Mode to type text.
+* `gg`: Moves to the top of the file.
+* `G` (`shift+g`): Moves to the bottom of the file.
+* `dd`: Deletes the current line.
+* `yy`: **Y**anks (copies) the current line.
+* `p`: **P**astes the copied line below the cursor.
+
+---
+
+### Linux Administration
+
+* **User Management**
+    * `useradd suresh`: Creates a new user named "suresh".
+    * `groupadd devops`: Creates a new group called "devops".
+    * `id suresh`: Shows the user and group IDs for "suresh".
+    * `usermod -aG devops suresh`: Adds "suresh" to the "devops" group.
+
+* **Permissions**
+    * Permissions are represented by numbers or characters for the **user**, **group**, and **others**.
+    * Read (`r`): **4**
+    * Write (`w`): **2**
+    * Execute (`x`): **1**
+    * **Example**: `chmod 744 file.txt` gives the owner read, write, and execute permissions (4+2+1=7), while the group and others only get read permission (4).

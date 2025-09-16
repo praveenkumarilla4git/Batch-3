@@ -1,0 +1,16 @@
+git commands:
+git status
+git clone <url>
+git add .
+git add <filename>
+git commit -m "commit messsage"
+git pull
+git push
+git checkout -b <branchname>
+
+git push -u origin feat/praveencodechanges
+origin → remote repo on GitHub.
+
+feat/praveencodechanges → name of your branch.
+
+-u (or --set-upstream) → links your local branch with the remote branch, so in future you can just use git push and git pull without extra arguments.
