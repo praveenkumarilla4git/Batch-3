@@ -14,3 +14,7 @@ origin → remote repo on GitHub.
 feat/praveencodechanges → name of your branch.
 
 -u (or --set-upstream) → links your local branch with the remote branch, so in future you can just use git push and git pull without extra arguments.
+
+
+git push --set-upstream origin main
+git remote set-url origin git@github.com:praveenkumarilla4git/Batch-4.git
