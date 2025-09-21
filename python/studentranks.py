@@ -17,16 +17,38 @@ print(f"\nNumber of students: {num_students}")
 all_students_data = []
 
 # Define the subjects
-subjects = ["English", "Hindi", "Telugu", "Maths", "Science", "Social"]
+subjects = ["English", "Hindi"] # "Telugu", "Maths", "Science", "Social"]
 
 # Loop through each student to collect their details and marks
 for i in range(num_students):
     print(f"\n--- Enter details for student {i + 1} ---")
 
-    # Get basic student details
-    student_name = input("Enter the student name: ")
-    roll_number = input("Enter the roll number: ")
-    student_class = input("Enter the student's class: ")
+    # Get student_name
+    while True:
+        try:
+            student_name = input("Enter the student name: ")
+            int(student_name)
+            print("Invalid input. Please enter a valid name.")
+        except ValueError:
+            break
+
+    # Get roll_number
+    while True:
+        try:
+            roll_number = (input("Enter the roll number: "))
+            int(roll_number)
+            break
+        except ValueError:
+            print("Invalid input. Roll number should be a number.")
+
+    # Get student_class
+    while True:
+        try:
+            student_class = int(input("Enter the student's class: "))
+            int(student_class)
+            break
+        except ValueError:
+            print("Invalid input. Please enter a number.")
 
     # Create a dictionary to store the current student's data
     student_data = {
@@ -53,23 +75,27 @@ for i in range(num_students):
     # Calculate total marks and percentage for the student
     total_marks = sum(student_data["marks"].values())
     percentage = (total_marks / (len(subjects) * 100)) * 100
-    rank = 1
 
     # Add total marks and percentage to the student's dictionary
     student_data["total_marks"] = total_marks
     student_data["percentage"] = percentage
-    student_data["rank"] = rank
 
     # Add the current student's data dictionary to the list
     all_students_data.append(student_data)
-    print(student_data)
 
-# Sorting students by percentage
+# ---------------------- Ranking System ----------------------
+for student in all_students_data:
+    rank = 1
+    for other in all_students_data:
+        if other["percentage"] > student["percentage"]:
+            rank += 1
+    student["rank"] = rank
+# ------------------------------------------------------------
+
+# Display student ranks in order (highest % first)
 print("\n" + "=" * 40)
-print("             STUDENT RANKS")
+print("STUDENT RANKS")
 print("=" * 40)
-
-# show ranks in order 1,2,3...
 for r in range(1, len(all_students_data) + 1):
     for student in all_students_data:
         if student["rank"] == r:
@@ -91,7 +117,7 @@ for student in all_students_data:
 
     print("-" * 20)
     print(f"Total Marks: {student['total_marks']}")
-    print(f"Percentage: {student['percentage']:.2f}%")  # Format percentage to two decimal places
+    print(f"Percentage: {student['percentage']:.2f}%")
+    print(f"Rank: {student['rank']}")
     print("=" * 40)
-
 
