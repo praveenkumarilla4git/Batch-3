@@ -53,27 +53,14 @@ for i in range(num_students):
     # Calculate total marks and percentage for the student
     total_marks = sum(student_data["marks"].values())
     percentage = (total_marks / (len(subjects) * 100)) * 100
-    rank = 1
 
     # Add total marks and percentage to the student's dictionary
     student_data["total_marks"] = total_marks
     student_data["percentage"] = percentage
-    student_data["rank"] = rank
 
     # Add the current student's data dictionary to the list
     all_students_data.append(student_data)
     print(student_data)
-
-# Sorting students by percentage
-print("\n" + "=" * 40)
-print("             STUDENT RANKS")
-print("=" * 40)
-
-# show ranks in order 1,2,3...
-for r in range(1, len(all_students_data) + 1):
-    for student in all_students_data:
-        if student["rank"] == r:
-            print(f"Rank {student['rank']} : {student['percentage']:.2f}%  ({student['name']})")
 
 # Display all collected student details and marks
 print("\n" + "=" * 40)
@@ -93,5 +80,3 @@ for student in all_students_data:
     print(f"Total Marks: {student['total_marks']}")
     print(f"Percentage: {student['percentage']:.2f}%")  # Format percentage to two decimal places
     print("=" * 40)
-
-
