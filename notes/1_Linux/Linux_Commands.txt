@@ -1,3 +1,24 @@
+ls -->
+ls -l -->
+ls -lt --> 
+ls -ltr -->
+ls -ltra -->
+mkdir <dirname> -->
+cd --> 
+pwd --> present working directory
+touch test.txt -->
+cat test.txt --> view the contents of the file
+cat > test.txt --> meaning we can enter contents into file named test.txt; but it always overwrites the existing contents
+cat >> test.txt --> meaning appends the current contents
+rm -r --> 
+vim <filename>
+i --> INSERT
+<ESC>: 
+<ESC>: q --> no changes made to file
+<ESC>: q! --> dont save the changes made to the file
+<ESC>: wq --> save the changes made to the file
+
+
 create an example.txt file
 Ans: touch example.txt
 

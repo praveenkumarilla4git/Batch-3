@@ -1,0 +1,54 @@
+Linux Advantages:
+No Graphics only commands
+Open Source
+OS is very less memory
+Storage/ Memory usage is very less so RAM is very good
+Speed
+Performance --> We can leave so many years without restart
+
+
+linux OS --> required enhanced features --> Amazon Machine Image --> AMI
+
+Regions
+Availability Zones AZ
+
+EC2 --> Elastic Compute Cloud (Virtual Machine)
+
+Linux
+AMI  --> free tier
+t3.micro --> free
+
+
+
+Client Server Architecture
+==========================
+
+Client 					--> Server 
+key							key
+private key				Public Key
+
+Linux Server --> Clients --> AWS (Linux Ipaddress username password)
+cmd prompt, git bash, mobxtream
+
+Windows --> \ (backward)
+Linux --> / (forward)
+
+
+Our intention is to create Public key and Private key
+
+ssh-keygen -f batch3
+batch3
+batch3.pub
+
+
+key pair import into aws
+keypairs --> option --> name --> .pub 
+
+firewall
+inbound (incoming)--> SSH --> Port
+outbound (outgoing) --> All traffic
+
+EC2 instance is up
+
+ssh -i <privat-key> username@ipaddress
+ssh -i batch3 ec2-user@13.62.50.92

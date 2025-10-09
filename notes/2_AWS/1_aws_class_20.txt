@@ -1,0 +1,4 @@
+to install any software inside linux
+yum install python --> normal user will face superuser preveliges issue
+sudo yum install python
+sudo yum install git -y
