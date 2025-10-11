@@ -53,6 +53,11 @@ if folder is not empty use rm -r to delete. rm -r meaning remove recurssive.
 if we have to copy a file from one location to other location
 cp <source_location> <destination_location>
 
+What is Absolute path ?
+/c/Users/prave/DevOps_Keys
+What is Relative Path ?
+Devops
+
 cd / --> change directory to root
 
 ls -l --> long list and alphabetical order file display 
@@ -65,6 +70,73 @@ cat display file contents on the prompt
 vi --> enter vi editor
 vim --> enter vim editor
 nano --> enter nano editor
+
+grep is very important
+grep is for search
+grep <word> <filename>
+grep -i <word> <filename>
+grep -ni <word> <filename>
+
+
+wget --> downloads the url page as a file in the current working directory or present working directory
+wget <url>
+
+curl --> displays the data present in the URL on to the command prompt screen in the linux.
+curl <url> 
+
+vi 
+
+:
+esc
+INSERT --> i
+:
+wq
+:
+q
+:
+q!
+
+
+Pattern Operations:
+| --> symbol
+
+Pipe:
+output of one operation becomes input to the next operation when you use pipe in Linux
+
+example using |:
+grep sbin passwd | grep -v /usr/ > tes1.txt
+result will be like below:
+games:x:12:100:games:/usr/games:/sbin/nologin
+systemd-network:x:192:192:systemd Network Management:/:/usr/sbin/nologin
+systemd-oom:x:999:999:systemd Userspace OOM Killer:/:/usr/sbin/nologin
+systemd-resolve:x:193:193:systemd Resolver:/:/usr/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/usr/share/empty.sshd:/sbin/nologin
+libstoragemgmt:x:997:997:daemon account for libstoragemgmt:/:/usr/sbin/nologin
+systemd-coredump:x:996:996:systemd Core Dumper:/:/usr/sbin/nologin
+systemd-timesync:x:995:995:systemd Time Synchronization:/:/usr/sbin/nologin
+
+
+AWK Command:
+
+cat passwd
+full file contents are displayed
+
+i want lines which do not have sbin
+grep -v sbin 
+
+root:x:0:0:root:/root:/bin/bash
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+
+cat passwd |grep -v sbin | awk -F "/" '{print $1}'
+
+root:x:0:0:root:
+ec2-user:x:1000:1000:EC2 Default User:
+
+amazon.com:praveen
+flipkart.com:kiran
+instamart.com:arun
+swiggy.com:radha
+nobroker.com:krishna
 
 
 

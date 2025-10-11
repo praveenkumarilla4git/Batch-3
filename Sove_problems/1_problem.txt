@@ -1,0 +1,20 @@
+https://raw.githubusercontent.com/praveenkumarilla4git/Batch-32/refs/heads/
+https://raw.githubusercontent.com/praveenkumarilla4git/Batch-33/refs/heads/
+https://raw.githubusercontent.com/praveenkumarilla4git/Batch-34/refs/heads/
+https://raw.githubusercontent.com/praveenkumarilla4git/Batch-35/refs/heads/
+https://raw.githubusercontent.com/saibarghava443/Batch-52/refs/heads/
+https://raw.githubusercontent.com/saibarghava443/Batch-53/refs/heads/
+https://raw.githubusercontent.com/saibarghava443/Batch-54/refs/heads/
+https://raw.githubusercontent.com/saibarghava443/Batch-55/refs/heads/
+
+
+awk
+delimiter
+/
+Fragments 
+
+F1/F2/F3/F4/F5/F6/F7
+
+
+Requirement
+In the given file; we need find the line number of a line where there is a key word Batch-52; but use only awk and grep commands and pipe

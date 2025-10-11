@@ -1,0 +1,19 @@
+cat passwd
+full file contents are displayed
+
+i want lines which do not have sbin
+grep -v sbin 
+
+root:x:0:0:root:/root:/bin/bash
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+
+cat passwd |grep -v sbin | awk -F "/" '{print $1}'
+
+root:x:0:0:root:
+ec2-user:x:1000:1000:EC2 Default User:
+
+amazon.com:praveen
+flipkart.com:kiran
+instamart.com:arun
+swiggy.com:radha
+nobroker.com:krishna
