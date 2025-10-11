@@ -1,0 +1,70 @@
+uname --> username
+uname -a --> all the details along with uname
+uname --help
+
+ls --help
+ls --ltra
+
+$ --> whoami --> normal user
+# --> whoami --> root
+
+windows --> admin --> installation run as admin
+root --> admin 
+
+sudo su - --> root permissions and root user
+
+sudo su -
+yum install git
+ec2-user sudo yum install git -y
+
+pwd --> present working directory
+cd --> change directory
+
+mkdir test --> folder named test is created
+mkdir --> make directory
+
+touch example.txt
+
+cat > example.txt <enter>
+Hi i am learning Linux
+
+<Enter>
+<cntrl+d>
+
+cat >> example.txt <enter>
+Add new content
+
+cat example.txt
+now we will have both the contents earlier one and second entry
+
+example file --> Create --> touch example.txt
+example file --> Write --> cat > example.txt
+example file --> Read --> cat example.txt
+example file --> Modify --> cat >> example.txt
+
+cd .. --> move cursor one folder back
+
+rmdir --> remove directory
+rmdir: failed to remove 'test/': Directory not empty 
+rmdir works well if the directory is empty
+
+if folder is not empty use rm -r to delete. rm -r meaning remove recurssive.
+
+if we have to copy a file from one location to other location
+cp <source_location> <destination_location>
+
+cd / --> change directory to root
+
+ls -l --> long list and alphabetical order file display 
+ls -lr --> reverse alphabetical
+ls -lt --> time related latest at top
+ls -ltr --> time related oldest at top
+ls -ltra --> along with hidden files
+
+cat display file contents on the prompt
+vi --> enter vi editor
+vim --> enter vim editor
+nano --> enter nano editor
+
+
+
