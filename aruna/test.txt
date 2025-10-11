@@ -1,2 +1,0 @@
-Hi I am learning DevOps with AWS Cloud; Currently learning Linux Commands.
-Hi I am Nag.
