@@ -1,0 +1,79 @@
+cat logfile.log 
+  502  awk '' logfile.log 
+  503  awk '{print}' logfile.log 
+  504  clear
+  505  awk '{print}' logfile.log 
+  506  awk '{print $1}' logfile.log 
+  507  awk '{print $1}' logfile.log > only_info.log 
+  508  mv only_info.log out.log
+  509  awk '{print $1,$2}' logfile.log
+  510  awk '{print $1,$2}' logfile.log > out.log 
+  511  awk '{print $1,$2,$5}' logfile.log > out.log 
+  512  awk -F " " '{print $1, $2, $3}' logfile.log 
+  513  awk '{print $1,$2,$5}' logfile.log > out.log 
+  514  awk '/[main]/' {print} logfile.log 
+  515  awk '/[main]/' {print $5} logfile.log 
+  516  awk '/[main]/ {print $5}' logfile.log 
+  517  awk '/[main]/ {print}' logfile.log 
+  518  awk '/[main]/ {print}' logfile.log > out.log 
+  519  awk '/[main]/ {count++} {print count}' logfile.log > out.log
+  520  clear
+  521  awk '/[main]/ {count++}' logfile.log 
+  522  awk '/main/ {count++}' logfile.log 
+  523  awk '/main/ {count++} END {print count}' logfile.log 
+  524  awk '/main/ {count++} END {print count}' logfile.log > out.log 
+  525  awk '/main/ {count++} END {print count}' logfile.log
+  526  history
+  527  awk '{print}' logfile.log
+  528  history
+  529  awk '/main/ {count++} END {print count}' logfile.log > out.log
+  530  awk '/main/ {count++} END {print "the count of main is"}' logfile.log > out.log
+  531  awk '/main/ {count++} END {print "the count of main is $count"}' logfile.log > out.log
+  532  awk '/main/ {count++} END {print "the count of main is" count}' logfile.log > out.log
+  533  awk '/main/ {count++} END {print "the count of main is", count}' logfile.log > out.log
+  534  awk '/main/ {count++} END {print "the count of main is", count}' logfile.log
+  535  awk '/BulkOpsClient/ {count++} END {print "the count of main is", count}' logfile.log
+  536  awk '07:51:54,393 07:51:56,862'
+  537  awk '$2'
+  538  awk '{print $2}' logfile.log 
+  539  awk '07:51:54,393 07:51:56,862'
+  540  awk '$2 >= "07:51:54,393" && $2 <= "07:51:56,862"'{print $2}' logfile.log 
+  541  awk '$2 >= "07:51:54,393" && $2 <= "07:51:56,862" '{print $2}' logfile.log 
+  542  awk '$2 >= "07:51:54,393" && $2 <= "07:51:56,862" {print $2}' logfile.log 
+  543  awk '{print $1}' logfile.log 
+  544  awk '$2 >= "07:51:54,393" && $2 <= "07:51:56,862" {print $2}' logfile.log > out.log
+  545* sed '' logfile.log 
+  546  awk '/main/ {print $2}' logfile.log
+  547  sed '/main/ {print $2}' logfile.log
+  548  sed --help
+  549  sed -n '/main/' logfile.log 
+  550  sed '/main/p' logfile.log 
+  551  sed -n '/main/p' logfile.log 
+  552  sed -n '/main/p' logfile.log 
+  553  sed -n '/main/p' logfile.log 
+  554  sed '/main/p' logfile.log 
+  555  sed -n '/main/p' logfile.log 
+  556  sed -n '/main/p' logfile.log 
+  557  clear
+  558  sed -n '/main/p' logfile.log 
+  559  sed 's/main/MAIN/g' logfile.log 
+  560  sed 's/main/fun/g' logfile.log 
+  561  sed -n 's/main/fun/g' logfile.log 
+  562  sed -n 's/main/fun/g' logfile.log 
+  563  sed -n 's/fun/main/g' logfile.log 
+  564  sed -n 's/fun/main/g' logfile.log 
+  565  clear
+  566  sed -n '/main/p' logfile.log 
+  567  sed 's/main/ANT/g' logfile.log
+  568  sed -n '/ANT/p' logfile.log 
+  569  clear
+  570  sed -n '/main/p' logfile.log 
+  571  sed -n '/ANT/p' logfile.log 
+  572  sed -n '/main/p' logfile.log 
+  573  sed -n 's/main/ANTg' logfile.log 
+  574  sed 's/main/ANTg' logfile.log 
+  575  sed 's/main/ANT/g' logfile.log 
+  576  clear
+  577  awk '{gsub(/main/, "MAIN"); print}' logfile.log
+  578  history > test,txt
+  579  history > test.txt
