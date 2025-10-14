@@ -1,0 +1,146 @@
+AWK and SED are powerful Unix/Linux command-line tools used for text processing and data manipulation. They are essential for scripting, automation, and system administration tasks.
+
+
+What is awk?
+awk is a text processing tool and programming language used for pattern scanning and data extraction from structured text (like CSVs, logs, or column-based files).
+
+
+Common Uses:
+1. Extract specific columns or fields from text.
+2. Perform calculations on data.
+3. Filter lines based on conditions.
+4. Format and print data reports.
+	Examples:
+			Command												Description
+	awk '{print $1}' file.txt						Prints the first column of each line.
+	awk '/error/ {print $0}' logfile				Prints lines containing the word “error”.
+	awk '{sum += $2} END {print sum}' data.txt		Calculates the sum of the second column.
+	awk -F, '{print $1, $3}' file.csv				Uses a comma as a field separator and prints columns 1 and 3.
+
+
+Key Features:
+1. Pattern Matching: Processes text line-by-line and applies actions to lines matching specific patterns.
+2. Field-Based Processing: Automatically splits lines into fields (default delimiter: whitespace).
+3. 	Supports arithmetic, string operations, and control structures (if, while, for).
+4. Built-in Variables:
+	$0 --> Entire line 
+	$1, $2 --> Specific fields
+	NR --> Line number
+	NF --> Number of fields in the current line
+	FS --> Field separator (default: space)
+	OFS --> Output field separator
+	RS  --> Record separator
+	ORS --> Output record separator
+	
+	
+Commonly Used Commands:
+	Command													Description
+awk '{print $0}' file.txt					Prints the entire line (default behavior).
+awk '{print $1}' file.txt					Prints the first column (field).
+awk '{print $1, $3}' file.txt				Prints the first and third columns.
+awk -F, '{print $1}' file.csv				Uses a comma as the field separator.
+awk '{sum += $2} END {print sum}' data.txt		Sums the values in the second column.
+awk 'NR > 1 {print $1}' file.txt			Skips the header and prints column 1 from the rest.	
+awk 'NR==5' file.txt						Prints the 5th line.
+awk 'NR>=2 && NR<=5' file.txt				Prints lines 2 to 5.
+awk '/pattern/ {print $0}' file.txt			Prints lines matching a specific pattern.
+awk '!/pattern/' file.txt					Prints lines not matching the pattern.
+awk 'length($0) > 20' file.txt				Prints lines longer than 20 characters.
+awk '{if ($3 > 50) print $1,$3}' file.txt	Prints first and third fields if the third field is greater than 50.
+awk 'BEGIN {print "Header"} {print $0} END {print "Footer"}' file.txt			Adds a header and footer.
+awk '{printf "%-10s %-10s\n", $1, $2}' file.txt				Prints formatted columns.
+awk '{count[$1]++} END {for (word in count) print word, count[word]}' file.txt				Counts frequency of first-column values.
+	
+	
+
+What is sed?
+sed (Stream Editor) is a command-line tool used for searching, finding, replacing, inserting, and deleting text in files or streams.
+	
+	
+Common Uses:
+1. Perform search and replace operations.
+2. Delete specific lines or patterns.
+3. Insert or append text at specific locations.
+4. Perform batch edits on multiple files.
+	Examples
+			Command									Description
+	sed 's/old/new/' file.txt		Replaces the first occurrence of “old” with “new” in each line.
+	sed 's/old/new/g' file.txt		Replaces all occurrences of “old” with “new”.
+	sed '/error/d' logfile			Deletes all lines containing “error”.
+	sed '2d' file.txt	D			eletes the 2nd line.
+	sed '1,3d' file.txt				Deletes lines 1 through 3.
+	sed 's/^/PREFIX: /' file.txt	Adds “PREFIX: ” at the beginning of each line.
+
+
+Key Features:
+1. Line-by-line editing: Reads input line-by-line and applies editing commands.
+2. Supports regular expressions for pattern matching.
+3. Non-interactive: Edits are applied automatically without user input.
+
+
+Commonly Used Commands
+		Command										Description
+sed 's/old/new/' file.txt				Replaces first occurrence of “old” with “new” in each line.
+sed 's/old/new/g' file.txt				Replaces all occurrences of “old” with “new”.
+sed 's/old/new/2' file.txt				Replaces the second occurrence of “old” in each line.
+sed -i 's/old/new/g' file.txt			In-place replacement (modifies the file directly).
+sed '/pattern/d' file.txt				Deletes lines containing “pattern”.
+sed '2d' file.txt						Deletes the second line.
+sed '1,3d' file.txt						Deletes lines 1 through 3.
+sed 's/^/PREFIX: /' file.txt			Adds “PREFIX: ” to the beginning of each line.
+sed 's/$/ :SUFFIX/' file.txt			Adds “:SUFFIX” to the end of each line.
+sed -n '/pattern/p' file.txt	        Prints only the lines that match “pattern”.
+sed -n '1,5p' file.txt					Prints lines 1 to 5.
+sed '5q' file.txt						Prints first 5 lines and quits (like head -5).
+sed 'i\text' file.txt					Inserts “text” before each line.
+sed 'a\text' file.txt					Appends “text” after each line.
+sed '3i\Inserted line' file.txt			Inserts a new line before line 3.
+sed '3a\Appended line' file.txt			Appends a new line after line 3.
+sed 's/[0-9]//g' file.txt				Removes all digits.
+sed 's/[[:space:]]//g' file.txt			Removes all whitespace.
+sed 's/\t/,/g' file.txt					Replaces tabs with commas.
+
+	
+	
+Difference Between awk and sed
+
+Feature					awk												sed
+Purpose			Data extraction, reporting, text analysis		Stream editing, search & replace
+Logic			Field- and record-based							Line- and pattern-based
+Programming		Has variables, loops, and conditionals			Simple command-based
+Use Case		Complex text/data processing					Simple substitutions or deletions
+	
+
+
+Examples of awk:
+Use of NR built-in variables (Display Line Number):
+$ awk '{print NR,$0}' employee.txt 
+Output:
+1 ajay manager account 45000
+2 sunil clerk account 25000
+3 varun manager sales 50000
+4 amit manager account 47000
+5 tarun peon sales 15000
+6 deepak clerk sales 23000
+7 sunil peon sales 13000
+8 satvik director purchase 80000
+
+Use of NF built-in variables (Display Last Field):  
+$ awk '{print $1,$NF}' employee.txt 
+Output:  
+ajay 45000
+sunil 25000
+varun 50000
+amit 47000
+tarun 15000
+deepak 23000
+sunil 13000
+satvik 80000
+
+Another use of NR built-in variables (Display Line From 3 to 6)  
+$ awk 'NR==3, NR==6 {print NR,$0}' employee.txt 
+Output:  
+3 varun manager sales 50000
+4 amit manager account 47000
+5 tarun peon sales 15000
+6 deepak clerk sales 23000 
