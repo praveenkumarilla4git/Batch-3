@@ -1,0 +1,22 @@
+ESC Mode
+I --> Insert we can add pr modify text into the file
+ESC + : 
+wq --> save and quit
+q --> if no changes made it will close the vi editor or quit
+q! --> quit without saving
+
+set nu --> this command will display line numbers in the vi editor
+set nonu --> remove line numbers 
+dd --> delete the line
+:12 --> cursor goes to line 12
+yy --> copy (yank) 
+p --> paste
+2d --> deletes second line
+/<word to search> --> /Devops
+?<word to search> --> ?Devops
+nohl
+/s/old_word/new_word
+16/s/the/TATA
+%s/old_word/new_word/g
+sed 's/main/Main/g'
+
