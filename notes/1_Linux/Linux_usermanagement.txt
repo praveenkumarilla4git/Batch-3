@@ -1,0 +1,56 @@
+uname
+uname -a
+uptime --> displays UK time by default
+
+to change to indian time we have to run one more command to set the time
+sudo timedatectl set-timezone Asia/Kolkata
+date --> current date
+who --> who tells user details (how many users are currently logged in; which user logged in when)
+whoami --> displays who has run this command
+which --> gives us the location of the command in OS example --> which bash --> /usr/bin/bash
+==============================
+id --> uid=1000(ec2-user) gid=1000(ec2-user) groups=1000(ec2-user),4(adm),10(wheel),190(systemd-journal) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+
+id gives user details which groups they belong and which groups are present in the machine
+
+uid=1000(ec2-user) ### this is user id
+gid=1000(ec2-user) ### this is group id
+
+a user cannot create another user; only a super user can create another user   
+
+root:x:0:0:root:/root:/bin/bash
+🧩 1️⃣ Entry: root:x:0:0:root:/root:/bin/bash
+Field	Value	Meaning
+1. username	root	The login name of the user (superuser account).
+2. password	x	Indicates that the encrypted password is stored in /etc/shadow (not here). The x is a placeholder for security.
+3. UID	0	User ID. 0 always means superuser (root). This user has full system control.
+4. GID	0	Group ID. This corresponds to the root group in /etc/group.
+5. comment (GECOS field)	root	Usually contains the full name or description of the user. Here it's just “root”.
+6. home directory	/root	The directory where root’s personal files and environment settings are stored.
+7. shell	/bin/bash	The command interpreter (shell) used when root logs in. Bash = Bourne Again Shell.
+
+
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+Field	Value	Meaning
+1. username	ec2-user	The default user created by Amazon EC2 for login.
+2. password	x	Again, x → password stored securely in /etc/shadow.
+3. UID	1000	User ID assigned by the system. Typically, normal users start from UID 1000.
+4. GID	1000	Group ID of the user’s primary group, which is also ec2-user.
+5. comment	EC2 Default User	Description or comment for the user (optional info).
+6. home directory	/home/ec2-user	The user’s home directory.
+7. shell	/bin/bash	The default shell program for this user.
+
+=====================
+useradd suresh
+if we are running this command without sudo access it will throw permission issue
+
+if we run sudo useradd suresh --> it will create a new user named suresh
+sudo useradd praveen
+sudo useradd aruna
+sudo useradd sai
+
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+suresh:x:1001:1001::/home/suresh:/bin/bash
+praveen:x:1002:1002::/home/praveen:/bin/bash
+aruna:x:1003:1003::/home/aruna:/bin/bash
+sai:x:1004:1004::/home/sai:/bin/bash
