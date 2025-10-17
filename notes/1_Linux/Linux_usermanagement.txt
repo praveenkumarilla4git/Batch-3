@@ -153,3 +153,16 @@ execute
 chmod 754 devopsclass.txt
 
 rwxr-xr---
+
+
+===================
+root folder is main and most basic folder in linux
+home usr bin etc var
+cd /
+ls
+cd
+pwd
+mkdir
+rm
+rmdir
+cat

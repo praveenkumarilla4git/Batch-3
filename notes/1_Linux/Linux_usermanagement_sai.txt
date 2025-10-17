@@ -52,5 +52,49 @@ it will delete existing user praveen from list of users in the linux box
 sudo usermod -aG groupname username
 sudo usermod -aG rebelwood aruna
 
+===========================
+sudo gpasswd -M <user1>,<user2>,<user3>, .. , <usern> <groupname>
+sudo gpasswd -M aruna,praveen,sai,suresh common --> Add multiple users to a group
+=========================================
+sudo passwd sai
+to set new password to user named sai
+================================
+sudo userdel sai
+it will delete existing user praveen from list of users in the linux box
+==================
+sudo groupdel hr
+==================
+top --> lists all the running process
+cntrl+c to exit
+====================
+df -h
+to see memory used
+
+==================
+-rw-r--r--. 1 ec2-user ec2-user 0 Oct 17 22:35 learn.txt
+
+- --> file
+
+file --> read, write, execute
+-rw-r--r--
+
+chmod 
+read 4
+write 2
+execute 1
+
+chmod 777  --> the user can read write and execute
+
+-	rw-	r-- r--. 1 sai devops 0 Oct 17 22:35 learn.txt
+
+644 
+
+777
+
+chmod 644 learn.txt
+chmod 600 learn.txt
+chmod 777 learn.txt --> dangerous never use this
+
+
 
 
