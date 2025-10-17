@@ -1,0 +1,56 @@
+uname
+Linux
+uname -a
+Linux ip-172-31-32-162.eu-north-1.compute.internal 6.1.155-176.282.amzn2023.x86_64 #1 SMP PREEMPT_DYNAMIC Tue Oct  7 15:53:25 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+
+=========================
+clear
+=========================
+pwd
+/home/ec2-user/test
+=========================
+date
+=========================
+uptime --> by default it will show up UK time
+sudo timedatectl set-timezone Asia/Kolkata
+=========================
+who --> users list on the machine along with when did they logged in
+whoami --> ec2-user
+================================
+echo "test"
+================================
+which python --> install dir location
+which bash -> install dir location
+===================================
+sudo shutdown
+sudo reboot
+====================================
+id
+uid=1000(ec2-user) gid=1000(ec2-user) groups=1000(ec2-user),4(adm),10(wheel),190(systemd-journal)
+uid --> user id
+gid --> group id
+id
+sudo adduser
+sudo groupadd
+====================================
+cat /etc/passwd --> to display usernames in the linux
+cat /etc/group --> to show and list the exisitng groups
+====================================
+sudo passwd praveen --> creates password for the user praveen
+==================================
+su sai
+enter password
+you will be user sai
+exit to come out of user sai
+==================================
+id sai
+it will display which groups sai belongs to
+==================================
+sudo userdel praveen
+it will delete existing user praveen from list of users in the linux box
+==================================
+sudo usermod -aG groupname username
+sudo usermod -aG rebelwood aruna
+
+
+

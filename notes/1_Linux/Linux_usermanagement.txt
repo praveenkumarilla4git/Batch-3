@@ -54,3 +54,102 @@ suresh:x:1001:1001::/home/suresh:/bin/bash
 praveen:x:1002:1002::/home/praveen:/bin/bash
 aruna:x:1003:1003::/home/aruna:/bin/bash
 sai:x:1004:1004::/home/sai:/bin/bash
+
+id aruna --> gives the user name; gives the group id; gives the groups which it belong to;
+uid=1001(aruna) gid=1001(aruna) groups=1001(aruna)
+
+======================
+CREATE a NEW Group
+cat /etc/group --> to see already exsisting groups in the Linux
+sudo groupadd dev
+sudo groupadd hr
+sudo groupadd test
+sudo groupadd devops
+
+=======================================
+sudo usermod -aG groupname username
+
+=======================================
+create a password to the users
+sudo passwd <username>
+sudo passwd aruna
+it will ask to create new password and confirm it
+
+=======================================
+sudo groupadd common --> we have created new group with name common
+sudo gpasswd -a suresh common --> added suresh to the group common
+
+
+
+===============================================
+clear --> to clear screen
+    2  sudo yum install python -y --> installs python from the internet
+    3  which python --> displays --> python installation directory
+	4  python --version --> displays python version
+    5  sudo adduser aruna --> adds new user in the Linux
+    6  id aruna --> id gives user details which groups they belong and which groups are present in the machine
+    7  cat /etc/group --> displays all the existing groups in Linux
+	8  sudo groupadd rebelwood --> adds new group named rebelwood into Linux
+	9  sudo groupadd devops --> adds new group named devops into Linux
+	10 sudo usermod -aG <gropuname> <username>
+		sudo usermod -aG dev suresh  --> modify user to add (a) user into Group (G) named dev
+	11  sudo usermod -aG hr praveen
+   12 cat /etc/passwd --> lists the all users in linux
+	13   cat /etc/group --> lists all the existing groups in Linux
+	14 	who --> displays which user is logged in and when he logged into the linux
+	15  su praveen --> switches to the new user named praveen
+    16  sudo passwd suresh --> creates new passwd for user suresh
+	17 whoami --> displays name of the user
+	18 who --> should display all users logged in --> need to check again
+    19 sudo gpasswd -a suresh common --> adds suresh to group common
+	20 sudo gpasswd -M aruna,praveen,sai common --> adds multiple users to group common
+	21  sudo adduser aravind
+	22 id aravind
+	23  sudo gpasswd -a aravind common
+	24  sudo userdel aravind --> deletes the user
+	25  sudo groupdel hr --> deletes the group named hr
+	
+-rw-r--r--. 1 ec2-user ec2-user 31 Oct 17 03:42 devopsclass.txt
+	
+	Field	Example	Meaning
+1	-rw-r--r--.	File permissions (who can read/write/execute)
+2	1	Number of hard links (how many names point to this file)
+3	ec2-user	Owner of the file
+4	ec2-user	Group that owns the file
+5	31	File size in bytes
+6–8	Oct 17 03:42	Last modification date and time
+9	devopsclass.txt	File name
+
+
+rwx --> read write execute
+
+4+2+1
+
+
+-rw-r--r--. 1 ec2-user ec2-user 31 Oct 17 03:42 devopsclass.txt
+rwxr-xrr--. 1 ec2-user ec2-user 31 Oct 17 03:42 devopsclass.txt
+
+ec2-user
+read --> 4
+write --> 2
+execute --> 1
+7
+
+ec2-user group
+read --> 4
+write --> 2
+execute --> 1
+7
+
+read
+write
+execute
+7
+
+777 --> file
+754
+
+
+chmod 754 devopsclass.txt
+
+rwxr-xr---
