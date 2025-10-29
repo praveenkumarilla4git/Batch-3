@@ -1,0 +1,32 @@
+while [condition]
+do
+# executing statements
+done
+
+#!/bin/bash
+count=1
+
+while [ $count -le 5 ]
+do
+        echo "Number: $count"
+        ((count++)) # incrementing count value after every execution
+done
+
+
+#!/bin/bash
+
+input=""
+
+while [ "$input" != "exit" ]
+do
+	read -p "Enter "exit" or "quit" " input
+	echo "You entered: $input "
+done
+
+chmod +x <filename> ---> gives executable permission for current user, group user and everyone
+sh <filename.sh> = ./<filename.sh>
+
+until [ condition]
+do
+#executable statements
+done

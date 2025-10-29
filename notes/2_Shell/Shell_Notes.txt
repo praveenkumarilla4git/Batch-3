@@ -1,0 +1,201 @@
+#!/bin/bash --> shebang
+this line signifies that the shell script should use the bash
+if we use #!/bin/dash --> it will tell script should be run using dash
+like wise if we #!/bin/sh --> it will tell script should be run using default scripting language set in the OS where the script is running. Some OS will use bash as default, some use ksh as default like that so shebang is very important that the sccripts we run should be run smoothly
+
+#!/bin/bash --> shebang
+echo "My name is Praveen"
+
+ls --> list the files and folders present in the current working directory
+pwd --> displays the present working directory path
+
+touch --> this command is used to create a new file 
+touch <filename>
+
+cat
+vim
+chmod 777 <filename>
+Each file is owned by a particular user and a group and assigned with permission access rights for three different classes of users:
+
+The file owner.
+The group members.
+Others (everybody else).
+
+File permissions can be viewed using the ls command. Here is an example:
+
+ls -l filename.txt
+
+-rw-r--r-- 12 linuxize users 12.0K Oct  8 20:51 filename.txt
+|[-][-][-]-   [------] [---]
+| |  |  | |      |       |
+| |  |  | |      |       +-----------> 7. Group
+| |  |  | |      +-------------------> 6. Owner
+| |  |  | +--------------------------> 5. Alternate Access Method
+| |  |  +----------------------------> 4. Others Permissions
+| |  +-------------------------------> 3. Group Permissions
+| +----------------------------------> 2. Owner Permissions
++------------------------------------> 1. File Type
+
+
+The write, read, and execute permissions have the following number value:
+
+r (read) = 4
+w (write) = 2
+x (execute) = 1
+no permissions = 0
+
+commands
+ls
+touch
+cat
+vim
+ls
+chmod
+man --> man ls
+
+vim
+:
+i --> Insert
+esc
+wq
+q
+q!
+
+pwd
+cd <folder>
+cd --> home directory
+mkdir --> make directory
+ls -ltr
+cd .. --> one folder back
+cp
+mv --> rename
+scp --> copy files across different machines
+vim
+history 
+
+# --> Comment
+:<< comment
+multiple lines
+comment
+multiple comments
+
+#############
+machines health
+#############
+
+nproc --> gives CPU info
+free --> 
+top --> gives info about processes running in the machine
+
+top command shows a live, updating view of:
+System load (CPU usage)
+Memory usage
+Swap usage
+Running processes
+Process IDs (PIDs)
+User running each process
+
+
+#############
+free command
+this command displays
+
+The free command displays:
+Total, used, and available memory (RAM)
+Swap memory usage
+Helps monitor memory usage and detect if the system is running low on RAM
+
+example:
+Mem:  1987036  771200  532300  9500  683536  1083200
+Total memory = 1,987,036 KB (~1.9 GB)
+
+Used = 771,200 KB (~753 MB)
+
+Free = 532,300 KB (~520 MB)
+
+Buff/cache = 683,536 KB (~667 MB)
+
+Available = 1,083,200 KB (~1.06 GB
+
+##################
+
+df
+The df command (Disk Filesystem) displays:
+
+How much disk space is used
+
+How much space is available
+
+Which filesystem (partition or mount point) it belongs to
+
+Example output:
+
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/xvda1       20G  7.2G   13G  37% /
+tmpfs           977M     0  977M   0% /dev/shm
+tmpfs           977M  852K  976M   1% /run
+tmpfs           977M     0  977M   0% /sys/fs/cgroup
+
+Filesystem	Name of the disk/partition (e.g., /dev/xvda1)
+Size	Total disk size
+Used	How much space is used
+Avail	How much space is available
+Use%	Percentage of disk used
+Mounted on	Mount point (where the filesystem is attached, e.g., /, /home, etc.)
+
+
+ps -ef --> processes along with process ids
+pipe commands | sends the output from one command as input to the next command
+
+implement meta data
+
+
+date | echo "today is"
+
+date --> gives output to stdin
+date is default shell command
+stdin stdout stderr
+
+grep
+awk
+|
+history
+mv
+
+ ps -ef | grep amazon | awk -F" " '{print $2}'
+
+
+#!/bin/bash
+
+#############################
+# Author: Praveen
+# # Date: Oct 29 2025
+# This script output machine state
+# ##################
+
+set -x  # debug mode
+set -e  # exit the script when there is an error
+set -o  pipefail
+
+df -h
+
+free -g
+
+nproc
+
+ps -ef | grep amazon | awk -F" " '{print $2}'
+curl
+wget
+find --> find / -name pam.d
+sudo find / -name pam.d
+sudo su - --> switch to super user
+sudo --> super user DO
+su --> switch user or super user
+
+
+trap
+
+kill -9 <PID>
+kill -9 java
+
+trap uasage

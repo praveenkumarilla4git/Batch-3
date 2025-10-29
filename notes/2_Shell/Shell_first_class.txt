@@ -1,0 +1,67 @@
+Linux --> Operating System
+
+Applications 
+Shell --> Automating huge level of tasks and get the logs and performacne and logs related data extraction
+Kernel
+OS HW
+
+ls -ltr
+>> file1.txt
+
+dev 
+if dev is there you have to create qa
+if dev is not there you have to create dev
+
+
+Variables
+Conditions
+Loops
+Functions
+
+Linus Trolvards --> Linux --> free open source --> C programming
+Steve Bourne --> Linux --> Linux Hard Ware OS --> upper layers --> communicate kernel --> Shell
+Bourne Shell
+Bshell
+bourne again shell
+bash --> extensively used across everywhere
+which bash
+shebang
+#!/bin/bash
+
+echo "Hello World"
+
+#!/bin/bash
+
+#read -p "Enter your Name " username
+#username=Bhargav
+#read username
+
+
+==============================================
+#!/bin/bash
+
+#read -p "Enter your Name " username
+#username=Bhargav
+#read username
+
+: << comment
+I am learning Shell and the
+if condition is covered
+comment
+
+
+read -p "Enter your name " username
+read -p "Enter your age " age
+echo "Hi Your name is $username, your age is $age"
+
+if [[ $age -ge 18 && $age -le 60 ]]
+then
+        echo "you are an adult"
+elif [[ $age -gt 60 ]]
+then
+        echo "you are a senior citizen"
+else
+        echo "you are a minor"
+
+
+===============================================

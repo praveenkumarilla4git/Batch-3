@@ -1,0 +1,515 @@
+SECTION 1: SHEBANG AND BASIC COMMANDS
+----------------------------------------------------
+#!/bin/bash → Shebang line, tells the OS which shell to use.
+
+Examples:
+#!/bin/bash       # Run with bash
+#!/bin/sh         # Run with default shell
+#!/bin/dash       # Run with dash shell
+
+Example:
+#!/bin/bash
+echo "Hello, World!"
+
+----------------------------------------------------
+Common Commands
+----------------------------------------------------
+ls            → List files and directories
+pwd           → Print current working directory
+touch <file>  → Create a new empty file
+cat <file>    → Display file contents
+chmod 777 <f> → Change file permissions (read/write/execute to all)
+man <cmd>     → Manual/help page for a command
+
+vim <file>    → Open file in vim editor
+:wq           → Save and quit
+:q!           → Quit without saving
+i			-> INSERT
+dd --> delete whole line
+yy --> yank --> copy whole line + P top print; +p bottom print
+
+----------------------------------------------------
+Navigation Commands
+----------------------------------------------------
+cd <dir>      → Change directory
+cd             → Go to home directory
+cd ..          → Go one level up
+mkdir <dir>    → Create directory
+cp src dest    → Copy file or folder
+Absolute path 
+Relative path
+mv src dest    → Move or rename file
+scp file user@server:/path → Copy file across machines
+secured copy
+
+----------------------------------------------------
+Comments in Shell
+----------------------------------------------------
+# Single line comment
+:<<COMMENT
+Multi-line comment block
+COMMENT
+
+----------------------------------------------------
+SECTION 2: FILE PERMISSIONS AND OWNERSHIP
+----------------------------------------------------
+Each file has 3 types of permissions:
+Owner, Group, and Others.
+
+Example:
+-rw-r--r--  1 user group 1234 Oct 29 10:00 myfile.txt
+
+r = read (4), w = write (2), x = execute (1)
+
+chmod examples:
+chmod 755 file.sh   # Owner can rwx, others r-x
+chmod 644 file.txt  # Owner can rw, others read only
+
+----------------------------------------------------
+SECTION 3: SYSTEM HEALTH COMMANDS
+----------------------------------------------------
+nproc        → Shows number of CPU cores
+free -h      → Shows RAM usage
+df -h        → Disk space usage
+top          → Shows real-time CPU and memory usage
+ps -ef       → Lists all processes
+uptime       → System uptime and load average
+uname -a --> System configuration related full data
+
+Example Script:
+#!/bin/bash
+echo "System Health Report:"
+echo "----------------------"
+echo "CPU Count:"
+nproc
+echo "Memory Info:"
+free -h
+echo "Disk Info:"
+df -h | grep -v tmpfs
+
+----------------------------------------------------
+SECTION 4: VARIABLES AND INPUT
+----------------------------------------------------
+Defining variables:
+name="Praveen"
+echo "Hello $name"
+
+Reading user input:
+read -p "Enter your name: " username
+echo "Welcome, $username!"
+
+Arithmetic operations:
+a=10
+b=5
+sum=$((a + b))
+echo "Sum: $sum"
+
+----------------------------------------------------
+SECTION 5: CONDITIONAL STATEMENTS
+----------------------------------------------------
+Syntax:
+if [ condition ]; then
+   commands
+elif [ condition ]; then
+   commands
+else
+   commands
+fi
+
+Examples:
+read -p "Enter age: " age
+if [[ $age -ge 18 && $age -le 60 ]]; then
+    echo "Adult"
+elif [[ $age -gt 60 ]]; then
+    echo "Senior Citizen"
+else
+    echo "Minor"
+fi
+
+Check file existence:
+if [ -f file.txt ]; then
+   echo "File exists"
+else
+   echo "File not found"
+fi
+
+----------------------------------------------------
+SECTION 6: LOOPS
+----------------------------------------------------
+FOR Loop:
+for i in {1..5}; do
+   echo "Number: $i"
+done
+
+WHILE Loop:
+count=1
+while [ $count -le 5 ]; do
+   echo "Count = $count"
+   ((count++))
+done
+
+UNTIL Loop:
+num=1
+until [ $num -gt 5 ]; do
+   echo "Number is $num"
+   ((num++))
+done
+
+----------------------------------------------------
+SECTION 7: FUNCTIONS
+----------------------------------------------------
+Define once, use many times:
+
+greet() {
+   echo "Hello, $1! Welcome to shell scripting."
+}
+greet "Praveen"
+
+Return example:
+add() {
+   echo $(( $1 + $2 ))
+}
+result=$(add 5 7)
+echo "Sum = $result"
+
+----------------------------------------------------
+SECTION 8: DEBUGGING & ERROR HANDLING
+----------------------------------------------------
+set -x          → Enable debugging (show commands)
+set +x          → Disable debugging
+set -e          → Exit if any command fails
+set -o pipefail → Exit if any piped command fails
+
+Example:
+#!/bin/bash
+set -e
+mkdir /tmp/testdir
+cd /tmp/testdir
+touch test.txt
+echo "Completed successfully!"
+
+----------------------------------------------------
+SECTION 9: SIGNAL HANDLING WITH TRAP
+----------------------------------------------------
+trap 'echo "Script interrupted! Cleaning up..."; exit 1' SIGINT SIGTERM
+
+Example:
+#!/bin/bash
+trap 'echo "Exiting..."; exit' SIGINT
+while true; do
+   echo "Running... Press Ctrl+C to stop."
+   sleep 2
+done
+
+----------------------------------------------------
+SECTION 10: PRACTICAL EXAMPLES
+----------------------------------------------------
+# 1. Check system health and save to file
+#!/bin/bash
+output="/tmp/sys_health.txt"
+echo "System Health Report" > $output
+date >> $output
+echo "CPU Count: $(nproc)" >> $output
+free -h >> $output
+df -h >> $output
+echo "Report saved to $output"
+
+# 2. File backup script
+#!/bin/bash
+src="/etc"
+dest="/tmp/etc_backup_$(date +%F).tar.gz"
+tar -czf $dest $src
+echo "Backup created at $dest"
+
+# 3. User creation script
+#!/bin/bash
+read -p "Enter username: " user
+sudo useradd -m $user && echo "User $user created."
+
+----------------------------------------------------
+SECTION 11: PIPE, GREP, AWK, AND FIND
+----------------------------------------------------
+Pipe (|) → Sends output of one command to another.
+grep     → Search text
+awk      → Pattern scanning and text processing
+find     → Search files
+
+Examples:
+ps -ef | grep ssh
+df -h | awk '{print $1, $5}'
+find / -name "*.log"
+
+----------------------------------------------------
+SECTION 12: SAMPLE AUTOMATION SCRIPT
+----------------------------------------------------
+#!/bin/bash
+# Simple automation: Disk usage alert
+threshold=80
+df -h | grep -vE '^Filesystem|tmpfs|cdrom' | while read line; do
+   usage=$(echo $line | awk '{print $5}' | tr -d '%')
+   partition=$(echo $line | awk '{print $6}')
+   if [ $usage -ge $threshold ]; then
+       echo "Warning: High usage on $partition ($usage%)"
+   fi
+done
+
+
+
+----------------------------------------------------
+SECTION 13: SAMPLE SCRIPT to print number
+----------------------------------------------------
+#!/bin/bash
+# Script: divisible.sh
+# Purpose: Print numbers divisible by 3 or 5 but not by 15 within a user-given range
+
+# Ask user for range limits
+read -p "Enter starting number: " start
+read -p "Enter ending number: " end
+
+echo "Numbers divisible by 3 or 5 but not by 15 between $start and $end:"
+echo "---------------------------------------------------------------"
+
+# Loop from start to end
+for (( i=$start; i<=$end; i++ ))
+do
+  # Check divisibility condition
+  if { [[ $(($i % 3)) -eq 0 || $(($i % 5)) -eq 0 ]] && [[ $(($i % 15)) -ne 0 ]]; }
+  then
+    echo "$i"
+  fi
+done
+
+
+-------------------
+#!/bin/bash
+x=missisipi
+grep -o "s" <<< "$x" | wc -l
+
+#!/bin/bash
+read -p "Enter a word: " x
+read -p "Enter the character to count: " ch
+count=$(grep -o "$ch" <<< "$x" | wc -l)
+echo "Character '$ch' appears $count times in '$x'"
+
+====================================================
+SECTION 14: ADVANCED SHELL SCRIPTING CONCEPTS
+====================================================
+
+1. ARRAYS IN SHELL SCRIPTING
+----------------------------------------------------
+# Indexed Array
+fruits=("apple" "banana" "cherry")
+echo "First fruit: ${fruits[0]}"
+echo "All fruits: ${fruits[@]}"
+echo "Number of fruits: ${#fruits[@]}"
+
+# Loop through array
+for item in "${fruits[@]}"; do
+  echo "Fruit: $item"
+done
+
+# Associative Array (bash 4+)
+declare -A capitals
+capitals[India]="New Delhi"
+capitals[France]="Paris"
+capitals[Japan]="Tokyo"
+
+echo "Capital of India: ${capitals[India]}"
+
+for country in "${!capitals[@]}"; do
+  echo "$country → ${capitals[$country]}"
+done
+
+----------------------------------------------------
+2. STRING MANIPULATION
+----------------------------------------------------
+text="ShellScriptingIsFun"
+
+# Length of string
+echo "Length: ${#text}"
+
+# Substring extraction
+echo "Substring (5 chars from index 5): ${text:5:5}"
+
+# Replace part of string
+echo "Replace 'Fun' with 'Powerful': ${text/Fun/Powerful}"
+
+# Convert to lowercase and uppercase
+#!/bin/bash
+
+# Define a variable with mixed-case text
+text="Hello World, This Is a Test!"
+
+# Convert to lowercase and echo
+echo "Lowercase: ${text,,}"
+
+# Convert to uppercase and echo
+echo "Uppercase: ${text^^}"
+
+echo "${text,,}"   # lowercase
+echo "${text^^}"   # uppercase
+
+----------------------------------------------------
+3. CASE STATEMENT
+----------------------------------------------------
+#!/bin/bash
+read -p "Enter choice (start/stop/restart): " action
+
+case $action in
+  start)
+    echo "Service starting..."
+    ;;
+  stop)
+    echo "Service stopping..."
+    ;;
+  restart)
+    echo "Service restarting..."
+    ;;
+  *)
+    echo "Invalid option!"
+    ;;
+esac
+
+----------------------------------------------------
+4. COMMAND-LINE ARGUMENTS
+----------------------------------------------------
+#!/bin/bash
+echo "Script name: $0"
+echo "First argument: $1"
+echo "Second argument: $2"
+echo "Total args: $#"
+echo "All args: $@"
+
+# Example: ./script.sh DevOps Engineer
+# Output:
+# Script name: ./script.sh
+# First argument: DevOps
+# Second argument: Engineer
+
+----------------------------------------------------
+5. EXIT CODES & CONDITIONAL EXECUTION
+----------------------------------------------------
+# Every command returns an exit code (0 = success, non-zero = failure)
+mkdir /tmp/testdir
+echo $?   # prints exit status of last command
+
+# Conditional execution
+ls /tmp && echo "List successful" || echo "List failed"
+
+----------------------------------------------------
+6. INPUT & OUTPUT REDIRECTION
+----------------------------------------------------
+# Redirect output to a file
+echo "Hello" > file.txt      # Overwrite
+echo "World" >> file.txt     # Append
+
+# Redirect input from a file
+while read line; do
+  echo "Line: $line"
+done < file.txt
+
+# Redirect stderr and stdout and stdin
+command >output.txt 2>error.txt   # Separate files
+command &>all_output.txt          # Combine both
+
+----------------------------------------------------
+7. FUNCTIONS WITH RETURN VALUES
+----------------------------------------------------
+#!/bin/bash
+add_numbers() {
+  local sum=$(( $1 + $2 ))
+  echo $sum
+}
+
+result=$(add_numbers 10 15)
+echo "Sum = $result"
+
+# Return example
+multiply() {
+  return $(( $1 * $2 ))
+}
+multiply 3 5
+echo "Result = $?"   # $? captures return value
+
+----------------------------------------------------
+8. PRACTICAL AUTOMATION EXAMPLES
+----------------------------------------------------
+# A) Automated Backup Script
+#!/bin/bash
+backup_file="/tmp/backup_$(date +%F).tar.gz"
+tar -czf "$backup_file" /etc
+echo "Backup created at $backup_file"
+
+# B) Check if service is running
+service="sshd"
+if systemctl is-active --quiet $service; then
+  echo "$service is running."
+else
+  echo "$service is not running."
+fi
+
+# C) Top 5 frequent error messages in log
+grep -i "error" /var/log/syslog | sort | uniq -c | sort -nr | head -5
+
+----------------------------------------------------
+9. SHELL SCRIPT OPTIMIZATION TIPS
+----------------------------------------------------
+✅ Use 'set -e' to exit on errors.
+✅ Use functions to avoid code repetition.
+✅ Prefer $(...) over backticks for command substitution.
+✅ Use double brackets [[ ]] for better conditional support.
+✅ Validate user input using regex where needed.
+✅ Use 'trap' for cleanup tasks.
+✅ Always comment your scripts clearly.
+
+
+
+====================================================
+SECTION 15: QUICK REVISION - NIGHT BEFORE INTERVIEW
+====================================================
+
+# 25 Commands & Key Points to Remember
+
+1.  ls -ltr → List files with details sorted by time
+2.  pwd → Print working directory
+3.  cd .. → Move one directory up
+4.  chmod 755 file.sh → Give execute permission
+5.  grep -i error logfile → Search “error” case-insensitive
+6.  awk '{print $1,$3}' file → Print columns 1 and 3
+7.  sed 's/old/new/g' file → Replace text globally
+8.  df -h → Disk space in human readable form
+9.  free -h → Memory usage
+10. ps -ef | grep java → Find Java process
+
+11. top → Real-time system stats
+12. crontab -e → Edit cron jobs
+13. find / -name file.txt → Search file
+14. tar -czf backup.tar.gz /etc → Create backup
+15. scp file user@server:/path → Copy to remote
+16. kill -9 PID → Force kill process
+17. systemctl status sshd → Check service status
+18. export VAR=value → Make variable available globally
+19. history | grep keyword → Find old command
+20. echo $? → Last command exit status
+
+21. for i in {1..5}; do echo $i; done → Simple for loop
+22. if [ -f file ]; then echo "Exists"; fi → File check
+23. set -x → Enable debugging
+24. trap "echo Interrupted" SIGINT → Handle Ctrl+C
+25. [[ $(($i%3)) -eq 0 ]] → Numeric condition
+
+# Pro Tips:
+- Always start scripts with #!/bin/bash
+- Test scripts with bash -n script.sh (syntax check)
+- Use set -e to stop on first error
+- Redirect output with > and errors with 2>
+- Always use quotes around variables: "$var"
+- Comment complex logic clearly for readability
+- Reuse code via functions for maintainability
+
+# Common Mistakes:
+❌ Missing spaces inside [ ] → always write if [ $a -gt 5 ]  
+❌ Using = instead of -eq for numbers  
+❌ Forgetting to use chmod +x before running scripts  
+❌ Not handling input errors or missing arguments  
+
