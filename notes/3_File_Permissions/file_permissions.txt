@@ -1,0 +1,175 @@
+shift+INSERT = Pastes the copied text into the VIM editor
+head <file.sh> --> displays few lines from top of the file
+tail <file.sh> --> displays few lines from bottom of the file
+
+
+##########Company##########
+employee --> user
+DevOps team --> Group
+Postions --> Roles (Jr. Sr. Lead Manager Admin)
+Access for those roles --> Permissions
+---------------------------------------------------------
+=========================================================
+
+1. Create User
+2. Create Group
+3. Assign User to a specific Group
+4. Remove User from a specific Group
+5. Remove User
+6. Remove Group
+
+Honey
+Users first remove
+then empty Honey group
+delete honey group
+
+1. create devops group
+2. create Suresh User
+3. add Suresh to devops group  
+4. Remove Suresh from devops group
+5. Remove Suresh user
+
+useradd suresh --> user suresh will be created
+groupadd devops --> creates devops group
+
+root user 
+sudo su -
+Super User do --> Super User - --> Switch
+
+===== 
+sudo su -
+whoami
+root
+
+useradd suresh
+groupadd devops
+
+id suresh
+uid=1001(suresh) gid=1001(suresh) groups=1001(suresh)
+
+user id is 1001
+group id is suresh
+groups which suresh belongs only one group for now which is suresh
+
+when we first time create a user there will be a default user created and default group with same name created as group
+
+id suresh
+cat /etc/passwd
+
+suresh:x:1001:1001:<description>:/home/suresh:/bin/bash
+
+
+cat /etc/group
+all groups available in the machine will be displayed
+
+suresh:x:1001:
+devops:x:1002:
+aruna:x:1003:
+
+cat /etc/shadow --> displays encryted passwords list (cannot see the passwords as they are encrypted)
+
+uid=1001(suresh) gid=1001(suresh) groups=1001(suresh)
+
+gid=1001(suresh) (1 primary group)
+groups=1001(suresh) (1 secondary group {atleast one secondary group})
+meaning if suresh has been added into any other (for instance devops) 
+new group which suresh has been added into will be listed in secondary groups when we hit id suresh
+
+we are trying add suresh into devops group
+usermod -g <group-name> <user-name>
+usermod -g devops suresh
+id suresh
+uid=1001(suresh) gid=1002(devops) groups=1002(devops)
+
+Suresh should be in devops group
+Along with that he also should be present in another group (for instance say operation)
+
+groupadd operations
+suresh should be in devops group and also in operations
+
+usermod -aG <group name (new)> <user-name>
+usermod -aG operations suresh 
+
+id suresh
+uid=1001(suresh) gid=1002(devops) groups=1002(devops)
+usermod -aG operations suresh
+id suresh
+uid=1001(suresh) gid=1002(devops) groups=1002(devops),1004(operations)
+
+id aruna
+uid=1002(aruna) gid=1003(aruna) groups=1003(aruna)
+usermod -aG devops aruna
+id aruna
+uid=1002(aruna) gid=1003(aruna) groups=1003(aruna),1002(devops)
+
+[root@ip-172-31-26-93 ~]# id aruna
+uid=1002(aruna) gid=1003(aruna) groups=1003(aruna),1005(testing)
+[root@ip-172-31-26-93 ~]# usermod -aG devops aruna
+[root@ip-172-31-26-93 ~]# id aruna
+uid=1002(aruna) gid=1003(aruna) groups=1003(aruna),1002(devops),1005(testing)
+[root@ip-172-31-26-93 ~]# usermod -aG operations aruna
+[root@ip-172-31-26-93 ~]# id aruna
+uid=1002(aruna) gid=1003(aruna) groups=1003(aruna),1002(devops),1004(operations),1005(testing)
+[root@ip-172-31-26-93 ~]#
+
+
+
+Username --> Password
+passwd <username>
+
+whoami
+root --> Admin
+When we are admin then we can set a passwd to new user
+
+command:
+-------
+passwd <username>
+
+passwd praveen
+confirm passwords a couple of times
+
+[root@ip-172-31-26-93 ~]# passwd praveen
+Changing password for user praveen.
+New password:
+BAD PASSWORD: The password fails the dictionary check - it is based on a dictionary word
+Retype new password:
+passwd: all authentication tokens updated successfully.
+
+passwd is assigned to praveen
+
+/etc/ssh/sshd_config --> this is ssh configuration system file we need to be very cautious with this file
+in this file we need to make sure the password authentication is enabled
+before:
+PasswordAuthentication no
+after:
+PasswordAuthentication yes
+
+be very careful with this file
+double check
+
+after editing if we need to know that there are no issues we need to check for syntax
+to check the syntax we need to run a command
+command:
+sshd -t
+if this results in empty then we are good
+[root@ip-172-31-26-93 ~]# vim /etc/ssh/sshd_config
+[root@ip-172-31-26-93 ~]# vim /etc/ssh/sshd_config
+[root@ip-172-31-26-93 ~]# vim /etc/ssh/sshd_config
+[root@ip-172-31-26-93 ~]# sshd -t
+When the result to this command is empty it means everything is fine
+
+[root@ip-172-31-26-93 ~]# vim /etc/ssh/sshd_config
+[root@ip-172-31-26-93 ~]# sshd -t
+/etc/ssh/sshd_config line 65: unsupported option "yes!".
+if there is any problem with the syntax it will throw error like above
+
+
+
+
+
+
+
+
+
+
+ 

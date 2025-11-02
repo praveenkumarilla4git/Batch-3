@@ -1,0 +1,618 @@
+
+====================================================
+SHELL SCRIPTING INTERVIEW MASTER NOTES
+====================================================
+Title: Shell Scripting Interview Master Notes – Praveen Kumar
+Author: Praveen Kumar
+Purpose: Final refined notes for Shell Scripting interview preparation.
+Format: Plain Text – Clean, Readable, and Comprehensive
+Generated: 2025-10-30
+Notes: Each script is ready-to-run. Scripts include a small metadata header (# Script: name - Purpose: ...).
+
+----------------------------------------------------
+TABLE OF CONTENTS
+----------------------------------------------------
+1. Introduction to Linux & Shell
+2. Basic Commands
+3. File Permissions & Ownership
+4. System Health Commands
+5. Variables & User Input
+6. Conditional Statements
+7. Loops (for, while, until, case)
+8. Functions
+9. Debugging & Error Handling
+10. Trap Command & Signal Handling
+11. Signals, Job Control & Process Management
+12. Signal Number Reference Table
+13. Practical Automation Scripts (Beginner → Intermediate → Advanced)
+14. Advanced Topics (Arrays, String manipulation, Redirection, Arguments)
+15. Quick Revision - Night Before Interview
+16. Interview Focus Tips
+17. Interview Questions (topic-wise included within each section)
+----------------------------------------------------
+
+----------------------------------------------------
+SECTION 1: INTRODUCTION TO LINUX & SHELL
+----------------------------------------------------
+Overview:
+- Linux is an open-source operating system composed of kernel, shell, and applications.
+- Shell is the command interpreter (user ↔ kernel). Common shells: sh, bash, ksh, csh, zsh.
+- Bash (Bourne Again Shell) is the most commonly used shell in Linux environments.
+
+Shebang:
+- The shebang (#!) on the first line tells the OS which interpreter to use.
+Examples:
+#!/bin/bash    -> execute with bash
+#!/bin/sh      -> execute with the system default shell
+#!/bin/dash    -> execute with dash
+
+Small runnable script (Beginner):
+# Script: hello_world.sh - Purpose: Demonstrate shebang and echo
+#!/bin/bash
+echo "Hello, World!"
+
+Interview Questions - Introduction:
+1. What is a shebang and why is it important?
+2. Name three shells and one difference between sh and bash.
+3. How do you run a script that is not executable? (Answer: sh script.sh or bash script.sh)
+
+----------------------------------------------------
+SECTION 2: BASIC COMMANDS
+----------------------------------------------------
+Common commands & brief examples:
+ls, pwd, cd, mkdir, touch, cp, mv, rm, rmdir, cat, man, history, chmod, chown, find, grep
+
+Example script (Beginner):
+# Script: list_and_search.sh - Purpose: List directory and search for files containing a pattern
+#!/bin/bash
+# Usage: ./list_and_search.sh /path pattern
+dir="${1:-.}"
+pattern="${2:-TODO}"
+echo "Listing files in: $dir"
+ls -la "$dir"
+echo "Searching for pattern: $pattern"
+grep -R --line-number "$pattern" "$dir" || echo "No matches found."
+
+Interview Questions - Basic Commands:
+1. How do you list hidden files? (Answer: ls -la)
+2. How to search for a string in files recursively? (Answer: grep -R 'pattern' path)
+3. How to copy a directory with its contents? (Answer: cp -r src dest)
+
+----------------------------------------------------
+SECTION 3: FILE PERMISSIONS & OWNERSHIP
+----------------------------------------------------
+Concepts:
+- Each file has permissions for Owner, Group, Others (r,w,x).
+- Numeric mode: combine values (r=4,w=2,x=1). Example: 7=rwx, 5=r-x, 4=r--.
+- chmod, chown, chgrp are primary commands for permissions and ownership.
+
+Example script (Beginner):
+# Script: set_permissions.sh - Purpose: Set recommended permissions for a script
+#!/bin/bash
+# Usage: ./set_permissions.sh script.sh
+file="${1:?Provide a filename}"
+chmod 755 "$file"
+echo "Permissions for $file set to 755"
+
+Interview Questions - Permissions:
+1. What does chmod 644 do? (Answer: owner rw, group r, others r)
+2. Explain the difference between chmod and chown.
+3. How to add execute permission only for the owner? (Answer: chmod u+x file)
+
+----------------------------------------------------
+SECTION 4: SYSTEM HEALTH COMMANDS
+----------------------------------------------------
+Useful commands: nproc, free -h, df -h, top, ps -ef, uptime, uname -a, vmstat, iostat (if installed)
+
+Example script (Intermediate):
+# Script: sys_health_report.sh - Purpose: Generate a brief system health report and save to /tmp
+#!/bin/bash
+# Usage: ./sys_health_report.sh
+output="/tmp/sys_health_$(date +%F_%H%M%S).txt"
+{
+  echo "System Health Report - $(date)"
+  echo "---------------------------------"
+  echo "Hostname: $(hostname)"
+  echo "Kernel/OS: $(uname -a)"
+  echo "CPU cores: $(nproc)"
+  echo "Memory:"
+  free -h
+  echo "Disk usage:"
+  df -h
+  echo "Top processes (by memory):"
+  ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head -n 10
+} > "$output"
+echo "Report saved to $output"
+
+Interview Questions - System Health:
+1. How to check free memory in human-readable format? (Answer: free -h)
+2. How to find top memory-consuming processes? (Answer: ps -eo ... | sort or use top)
+3. How to check disk usage of a particular partition? (Answer: df -h /partition)
+
+----------------------------------------------------
+SECTION 5: VARIABLES & USER INPUT
+----------------------------------------------------
+Variable basics, quoting, and arithmetic:
+- Use quotes around variables to handle spaces: "$var"
+- Command substitution: $(command) preferred over backticks.
+- Arithmetic: $((a + b)), ((i++)) for arithmetic increments.
+
+Example scripts (Beginner → Intermediate):
+# Script: greet_user.sh - Purpose: Read and greet user
+#!/bin/bash
+read -p "Enter your name: " username
+echo "Hello, $username!"
+
+# Script: calc.sh - Purpose: Simple calculator (add, sub, mul, div)
+#!/bin/bash
+# Usage: ./calc.sh 12 + 5
+if [ "$#" -ne 3 ]; then
+  echo "Usage: $0 num1 operator num2"
+  exit 1
+fi
+a=$1; op=$2; b=$3
+case "$op" in
+  +) echo "$((a + b))" ;;
+  -) echo "$((a - b))" ;;
+  x|X|\*) echo "$((a * b))" ;;
+  /) echo "$((a / b))" ;;
+  *) echo "Unsupported operator" ;;
+esac
+
+Interview Questions - Variables & Input:
+1. How do you access the first and second script arguments? (Answer: $1 and $2)
+2. Why quote variables in bash? Give an example.
+3. Difference between single quotes and double quotes? (Answer: single quotes prevent expansion)
+
+----------------------------------------------------
+SECTION 6: CONDITIONAL STATEMENTS
+----------------------------------------------------
+Operators:
+- String: =, !=, <, >
+- Numeric: -eq, -ne, -lt, -le, -gt, -ge
+- Use [[ ... ]] for extended tests (preferred)
+- File tests: -f, -d, -r, -w, -x
+
+Example script (Beginner):
+# Script: age_check.sh - Purpose: Check age category
+#!/bin/bash
+read -p "Enter age: " age
+if [[ $age -ge 18 && $age -le 60 ]]; then
+  echo "Adult"
+elif [[ $age -gt 60 ]]; then
+  echo "Senior Citizen"
+else
+  echo "Minor"
+fi
+
+Interview Questions - Conditional Statements:
+1. Difference between [ ] and [[ ]]? (Answer: [[ ]] is safer, supports regex, no word splitting)
+2. How to check if a file exists and is a regular file? (Answer: [ -f file ])
+3. How to test string equality? (Answer: [ "$a" = "$b" ])
+
+----------------------------------------------------
+SECTION 7: LOOPS (for, while, until, case)
+----------------------------------------------------
+Overview & runnable examples:
+
+# Script: for_numbers.sh - Purpose: Print numbers 1..5 (Beginner)
+#!/bin/bash
+for i in {1..5}; do
+  echo "Number: $i"
+done
+
+# Script: while_count.sh - Purpose: Example while loop (Beginner)
+#!/bin/bash
+count=1
+while [ $count -le 5 ]; do
+  echo "Count = $count"
+  ((count++))
+done
+
+# Script: until_example.sh - Purpose: Demonstrate until loop (Beginner)
+#!/bin/bash
+num=1
+until [ $num -gt 5 ]; do
+  echo "Number is $num"
+  ((num++))
+done
+
+# Script: case_loop.sh - Purpose: Demonstrate case statement (Beginner)
+#!/bin/bash
+read -p "Enter a duration (day/night): " duration
+case $duration in
+  day)   echo "Go to Work!";;
+  night) echo "Go to Sleep";;
+  *)     echo "Invalid entry";;
+esac
+
+Intermediate example - reading file line by line:
+# Script: read_file_lines.sh - Purpose: Read file line-by-line (Intermediate)
+#!/bin/bash
+# Usage: ./read_file_lines.sh file.txt
+file="${1:?Provide a filename}"
+while IFS= read -r line; do
+  echo "Line: $line"
+done < "$file"
+
+Interview Questions - Loops:
+1. Difference between for and while loops?
+2. How to break out of nested loops?
+3. How to read a file line-by-line safely? (Answer: while IFS= read -r line; do ...; done < file)
+4. How to skip to next iteration? (Answer: continue)
+5. When to use until vs while?
+
+----------------------------------------------------
+SECTION 8: FUNCTIONS
+----------------------------------------------------
+Functions help modularize scripts. Use local variables when necessary.
+Syntax:
+function_name() {
+  commands
+}
+
+Example scripts:
+# Script: functions_demo.sh - Purpose: Show function usage (Beginner)
+#!/bin/bash
+greet() {
+  echo "Hello, $1!"
+}
+greet "Praveen"
+
+# Script: add_func.sh - Purpose: Return arithmetic result (Intermediate)
+#!/bin/bash
+add() {
+  local a=$1; local b=$2
+  echo $((a + b))
+}
+result=$(add 5 7)
+echo "Sum = $result"
+
+Interview Questions - Functions:
+1. How to return a value from a function? (Answer: echo or set global var; return only gives exit code)
+2. What does local do inside a function?
+3. How to export a function to subshells? (Answer: declare -f name | cat > file; or use environment in certain shells)
+
+----------------------------------------------------
+SECTION 9: DEBUGGING & ERROR HANDLING
+----------------------------------------------------
+Useful flags:
+- set -x : enable execution trace (debug)
+- set +x : disable trace
+- set -e : exit on first failing command
+- set -o pipefail : ensure pipeline failure detection
+
+Example script (Intermediate):
+# Script: safe_script.sh - Purpose: Example showing set -e and trap for failures
+#!/bin/bash
+set -euo pipefail
+trap 'echo "Error occurred on line $LINENO. Exiting."; exit 1' ERR
+echo "This will run."
+# simulate failure: uncomment next line to test
+# false
+echo "Completed successfully."
+
+Interview Questions - Debugging:
+1. What does set -e do?
+2. How is set -o pipefail useful?
+3. How to print commands as they execute? (Answer: set -x)
+
+----------------------------------------------------
+SECTION 10: TRAP COMMAND & SIGNAL HANDLING
+----------------------------------------------------
+Purpose:
+- trap catches signals and executes specified commands when those signals occur.
+- Use trap for cleanup, logging, graceful shutdowns.
+
+Syntax:
+trap 'commands' SIGNALS
+
+Common signals:
+SIGINT (Ctrl+C), SIGTERM, SIGQUIT, SIGHUP, EXIT, ERR
+
+Example scripts:
+
+# Script: trap_basic.sh - Purpose: Handle Ctrl+C interruption (Beginner)
+#!/bin/bash
+# Trap SIGINT (Ctrl+C)
+trap 'echo "Script interrupted. Cleaning up..."; exit 1' SIGINT
+while true; do
+  echo "Running... Press Ctrl+C to stop."
+  sleep 2
+done
+
+# Script: trap_cleanup.sh - Purpose: Create temp file and cleanup on exit (Intermediate)
+#!/bin/bash
+tmp_file="/tmp/temp_$$.txt"
+trap 'echo "Cleaning up temporary file..."; rm -f "$tmp_file"; echo "Done."; exit' EXIT
+echo "Creating $tmp_file"
+touch "$tmp_file"
+echo "Processing... (sleeping 5s)"; sleep 5
+echo "Finished processing."
+
+# Script: ignore_signals.sh - Purpose: Show ignoring signals (Advanced)
+#!/bin/bash
+trap '' SIGINT SIGTERM
+echo "SIGINT and SIGTERM are ignored for 10s"
+sleep 10
+echo "Done."
+
+Interview Questions - Trap & Signals:
+1. How do you trap Ctrl+C inside a script?
+2. Difference between EXIT and ERR in trap?
+3. Why SIGKILL cannot be trapped?
+4. Give an example when trap EXIT is useful.
+
+----------------------------------------------------
+SECTION 11: SIGNALS, JOB CONTROL & PROCESS MANAGEMENT
+----------------------------------------------------
+Commands overview:
+ps -ef, top, htop, kill, killall, pkill, jobs, bg, fg, disown, nohup, &
+
+Examples & usage:
+
+# Script: process_demo.sh - Purpose: Demonstrate background job, jobs, fg, bg (Intermediate)
+#!/bin/bash
+# Start a background sleep job
+sleep 300 &
+echo "Started sleep in background. Jobs list:"
+jobs
+echo "You can bring the job to foreground using: fg %1"
+
+# One-liners:
+# Find PID: ps -ef | grep httpd
+# Kill gracefully: kill <PID>
+# Force kill: kill -9 <PID>
+# Kill by name: pkill -f pattern
+
+nohup usage:
+nohup ./long_running_script.sh &
+# output goes to nohup.out
+
+Interview Questions - Job Control & Processes:
+1. Difference between SIGTERM and SIGKILL?
+2. How to run a job in background and prevent stopping after logout?
+3. What does Ctrl+Z do? How to resume? (Answer: suspends process, use fg or bg)
+4. How to find process using a port? (Answer: ss -ltnp or netstat -tulpn)
+
+----------------------------------------------------
+SECTION 12: SIGNAL NUMBER REFERENCE TABLE
+----------------------------------------------------
+Common signals and numbers (Linux/Unix):
+0   EXIT       - Exit from script (not a POSIX signal but useful)
+1   SIGHUP      - Hangup (terminal closed)
+2   SIGINT      - Interrupt from keyboard (Ctrl+C)
+3   SIGQUIT     - Quit from keyboard (Ctrl+\)
+6   SIGABRT     - Process abort signal
+9   SIGKILL     - Kill signal (cannot be trapped)
+15  SIGTERM     - Termination signal (default for kill)
+17  SIGCHLD     - Child status changed
+18  SIGCONT     - Continue if stopped
+19  SIGSTOP     - Stop process (cannot be trapped)
+20  SIGTSTP     - Stop typed at tty (Ctrl+Z)
+
+Interview Questions - Signals Table:
+1. Which signals cannot be trapped? (Answer: SIGKILL and SIGSTOP)
+2. What is the default signal sent by kill? (Answer: SIGTERM)
+3. What signal is generated by Ctrl+Z? (Answer: SIGTSTP)
+
+----------------------------------------------------
+SECTION 13: PRACTICAL AUTOMATION SCRIPTS (Beginner → Intermediate → Advanced)
+----------------------------------------------------
+Beginner scripts (ready to run):
+1) Hello World (shown earlier)
+2) greet_user.sh (shown earlier)
+3) even_odd.sh
+# Script: even_odd.sh - Purpose: Check if provided number is even or odd
+#!/bin/bash
+# Usage: ./even_odd.sh 7
+num="${1:?Usage: $0 number}"
+if (( num % 2 == 0 )); then
+  echo "$num is even"
+else
+  echo "$num is odd"
+fi
+
+4) file_check.sh
+# Script: file_check.sh - Purpose: Check file existence and size
+#!/bin/bash
+# Usage: ./file_check.sh filename
+file="${1:?Provide filename}"
+if [ -f "$file" ]; then
+  echo "File exists: $file (size: $(stat -c%s "$file") bytes)"
+else
+  echo "File does not exist."
+fi
+
+Intermediate scripts:
+1) sys_health_report.sh (shown earlier)
+2) disk_alert.sh
+# Script: disk_alert.sh - Purpose: Alert when disk usage crosses threshold
+#!/bin/bash
+# Usage: ./disk_alert.sh 80
+threshold="${1:-80}"
+df -h | grep -vE '^Filesystem|tmpfs|cdrom' | while read -r line; do
+  usage=$(echo "$line" | awk '{print $5}' | tr -d '%')
+  partition=$(echo "$line" | awk '{print $6}')
+  if [ "$usage" -ge "$threshold" ]; then
+    echo "Warning: $partition usage is ${usage}% (threshold ${threshold}%)"
+  fi
+done
+
+3) backup_etc.sh
+# Script: backup_etc.sh - Purpose: Backup /etc to /tmp with date
+#!/bin/bash
+# Usage: sudo ./backup_etc.sh
+dest="/tmp/etc_backup_$(date +%F).tar.gz"
+tar -czf "$dest" /etc
+echo "Backup saved to $dest"
+
+4) create_user.sh
+# Script: create_user.sh - Purpose: Create a system user safely
+#!/bin/bash
+# Usage: sudo ./create_user.sh username
+user="${1:?Provide username}"
+if id "$user" &>/dev/null; then
+  echo "User $user already exists."
+  exit 1
+fi
+sudo useradd -m "$user" && echo "User $user created."
+
+Advanced scripts:
+1) trap_cleanup.sh (shown earlier)
+2) monitor_and_rotate.sh
+# Script: monitor_and_rotate.sh - Purpose: Monitor a log file and rotate when large (Advanced)
+#!/bin/bash
+# Usage: ./monitor_and_rotate.sh /var/log/myapp.log 10485760
+logfile="${1:?Provide logfile}"
+maxsize="${2:-10485760}" # default 10MB
+if [ ! -f "$logfile" ]; then echo "Log file not found: $logfile"; exit 1; fi
+size=$(stat -c%s "$logfile")
+if [ "$size" -ge "$maxsize" ]; then
+  mv "$logfile" "${logfile}.old_$(date +%F_%H%M%S)"
+  gzip "${logfile}.old_"* 2>/dev/null || true
+  touch "$logfile"
+  echo "Rotated $logfile (was ${size} bytes)"
+else
+  echo "No rotation needed (size ${size})"
+fi
+
+3) parse_errors.sh
+# Script: parse_errors.sh - Purpose: Extract top 10 error messages from a log (Advanced)
+#!/bin/bash
+# Usage: ./parse_errors.sh /var/log/syslog
+log="${1:?Provide log file}"
+grep -i "error" "$log" | awk -F':' '{print $0}' | sort | uniq -c | sort -nr | head -n 10
+
+Interview Questions - Practical Scripts:
+1. How would you schedule backup_etc.sh to run daily?
+2. How to rotate log files safely without losing data?
+3. How to test disk_alert.sh without filling disk?
+
+----------------------------------------------------
+SECTION 14: ADVANCED TOPICS
+----------------------------------------------------
+1) Arrays (bash 4+)
+# Script: arrays_demo.sh - Purpose: Demonstrate indexed and associative arrays
+#!/bin/bash
+fruits=("apple" "banana" "cherry")
+echo "First: ${fruits[0]}"
+echo "All: ${fruits[@]}"
+echo "Count: ${#fruits[@]}"
+declare -A capitals
+capitals[India]="New Delhi"
+capitals[France]="Paris"
+echo "Capital of India: ${capitals[India]}"
+
+2) String manipulation
+# Script: string_ops.sh - Purpose: Show substring and case conversions
+#!/bin/bash
+text="HelloWorld"
+echo "Length: ${#text}"
+echo "Substring: ${text:5:5}"
+echo "Lowercase: ${text,,}"
+echo "Uppercase: ${text^^}"
+
+3) Command-line arguments & special vars
+# Script: args_demo.sh - Purpose: Show special variables $0 $1 $@ $#
+#!/bin/bash
+echo "Script name: $0"
+echo "Arg1: $1"
+echo "All args: $@"
+echo "Number of args: $#"
+
+4) I/O Redirection & pipes
+# Examples:
+cmd > out.txt         # overwrite stdout
+cmd >> out.txt        # append stdout
+cmd 2> err.txt        # stderr to file
+cmd &> all.txt        # both stdout and stderr to file
+cmd1 | cmd2           # pipe output of cmd1 to cmd2
+
+Interview Questions - Advanced Topics:
+1. How to declare and iterate associative arrays?
+2. Explain ${var:-default} and ${var:=default} behavior.
+3. How to redirect stderr to stdout and to a file?
+
+----------------------------------------------------
+SECTION 15: QUICK REVISION - NIGHT BEFORE INTERVIEW
+----------------------------------------------------
+25 Commands & Key Points to Remember:
+1. ls -ltr
+2. pwd
+3. cd ..
+4. chmod 755 script.sh
+5. grep -i error logfile
+6. awk '{print $1,$3}' file
+7. sed 's/old/new/g' file
+8. df -h
+9. free -h
+10. ps -ef | grep process
+11. top
+12. crontab -e
+13. find / -name filename
+14. tar -czf backup.tar.gz /etc
+15. scp file user@server:/path
+16. kill -9 PID
+17. systemctl status service
+18. export VAR=value
+19. history | grep keyword
+20. echo $?
+21. for i in {1..5}; do echo $i; done
+22. if [ -f file ]; then echo yes; fi
+23. set -x
+24. trap "echo Interrupted" SIGINT
+25. [[ $(($i%3)) -eq 0 ]]
+
+Common Mistakes to Avoid:
+- Missing spaces inside [ ] in conditions
+- Using = instead of -eq for numeric comparisons in [ ]
+- Forgetting to chmod +x before executing scripts
+- Not quoting variables containing spaces
+- Ignoring exit codes and not handling failures
+
+----------------------------------------------------
+SECTION 16: INTERVIEW FOCUS TIPS
+----------------------------------------------------
+1. Always start scripts with a shebang and include purpose metadata comment.
+2. Test scripts with bash -n script.sh for syntax check and bash -x script.sh for debug run.
+3. Use set -euo pipefail for safer scripts (explain each flag).
+4. Validate user inputs and provide usage messages.
+5. Use functions to avoid code duplication.
+6. Use trap for cleanup on exit or signals.
+7. Keep scripts idempotent when possible (safe to run multiple times).
+8. Prefer $(...) over backticks for command substitution.
+9. Always quote variables: "$var"
+10. Log actions in scripts for easier debugging and audit.
+
+----------------------------------------------------
+SECTION 17: INTERVIEW QUESTIONS - TOPIC WISE (Summary)
+----------------------------------------------------
+INTRO & BASICS:
+- What is shebang and how does it work?
+- How to make a script executable?
+- What does chmod 644 do?
+
+VARIABLES & INPUT:
+- How to access positional parameters?
+- Explain quoting and why it's necessary.
+
+CONDITIONS & LOOPS:
+- Difference between [ ] and [[ ]]?
+- How to loop over files in a directory?
+
+FUNCTIONS & DEBUGGING:
+- How to return values from functions?
+- What do set -e, set -x, set -o pipefail do?
+
+TRAP & SIGNALS:
+- How to trap signals? Provide example.
+- Which signals cannot be trapped and why?
+
+ADVANCED & PRACTICAL:
+- How to parse logs and produce top N errors?
+- How would you implement safe log rotation?
+
+----------------------------------------------------
+END OF NOTES
+----------------------------------------------------
