@@ -10,13 +10,15 @@ set nonu --> remove line numbers
 dd --> delete the line
 :12 --> cursor goes to line 12
 yy --> copy (yank) 
-p --> paste
+p --> paste below line
+shift p paste above line
 2d --> deletes second line
 /<word to search> --> /Devops
 ?<word to search> --> ?Devops
-nohl
+noh
 /s/old_word/new_word
-16/s/the/TATA
-%s/old_word/new_word/g
+16s/the/TATA --> in line number 16, replace the with TATA this replaces only first occurence if we need to do for all oocurances in the line we need to use g
+%s/old_word/new_word/g --> every thing across the file
 sed 's/main/Main/g'
+16s/the/TATA/g --> g means global all occurences in the line 16
 

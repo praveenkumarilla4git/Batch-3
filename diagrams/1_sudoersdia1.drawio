@@ -1,0 +1,43 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36" version="28.2.8">
+  <diagram name="Page-1" id="ordOJ2JpdHkb1pkn3Ev6">
+    <mxGraphModel dx="1042" dy="562" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="6O93H762r1iRci_g4Ogy-1" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="210" y="75" width="360" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="6O93H762r1iRci_g4Ogy-2" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="290" y="130" width="220" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="6O93H762r1iRci_g4Ogy-3" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="335" y="190" width="130" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="6O93H762r1iRci_g4Ogy-4" value="OS HW" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="360" y="215" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6O93H762r1iRci_g4Ogy-5" value="Kernel" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="320" y="185" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="6O93H762r1iRci_g4Ogy-6" value="Shell" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="230" y="185" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="6O93H762r1iRci_g4Ogy-7" value="Applications" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="180" y="110" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vHH9C7fcC0R0Xpp9KIqk-1" value="IP" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="730" width="240" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="vHH9C7fcC0R0Xpp9KIqk-2" value="ssh -i &lt;b&gt;batch3 &lt;/b&gt;ec2-user@IP" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="800" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vHH9C7fcC0R0Xpp9KIqk-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.002;entryY=0.445;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="vHH9C7fcC0R0Xpp9KIqk-2" target="vHH9C7fcC0R0Xpp9KIqk-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vHH9C7fcC0R0Xpp9KIqk-6" value="ssh --&amp;gt; secured shell&lt;div&gt;-i --&amp;gt; giving private &lt;b&gt;key &lt;/b&gt;info&lt;/div&gt;&lt;div&gt;user&lt;/div&gt;&lt;div&gt;@&lt;/div&gt;&lt;div&gt;Public&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="850" width="210" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

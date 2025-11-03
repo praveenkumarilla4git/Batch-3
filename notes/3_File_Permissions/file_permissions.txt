@@ -1,8 +1,7 @@
 shift+INSERT = Pastes the copied text into the VIM editor
 head <file.sh> --> displays few lines from top of the file
 tail <file.sh> --> displays few lines from bottom of the file
-
-
+I have given task for this
 ##########Company##########
 employee --> user
 DevOps team --> Group
@@ -34,7 +33,7 @@ groupadd devops --> creates devops group
 
 root user 
 sudo su -
-Super User do --> Super User - --> Switch
+Super User do --> Super User - --> Switch to root user
 
 ===== 
 sudo su -
@@ -48,8 +47,8 @@ id suresh
 uid=1001(suresh) gid=1001(suresh) groups=1001(suresh)
 
 user id is 1001
-group id is suresh
-groups which suresh belongs only one group for now which is suresh
+group id is suresh --> Primary
+groups which suresh belongs only one group for now which is suresh --> Secondary
 
 when we first time create a user there will be a default user created and default group with same name created as group
 
@@ -57,7 +56,6 @@ id suresh
 cat /etc/passwd
 
 suresh:x:1001:1001:<description>:/home/suresh:/bin/bash
-
 
 cat /etc/group
 all groups available in the machine will be displayed
@@ -77,7 +75,8 @@ new group which suresh has been added into will be listed in secondary groups wh
 
 we are trying add suresh into devops group
 usermod -g <group-name> <user-name>
-usermod -g devops suresh
+usermod -g devops suresh adding user to primary group
+usermod -aG <group-name> <user-name> --> adding suresh to secondary group
 id suresh
 uid=1001(suresh) gid=1002(devops) groups=1002(devops)
 
@@ -112,8 +111,6 @@ uid=1002(aruna) gid=1003(aruna) groups=1003(aruna),1002(devops),1005(testing)
 uid=1002(aruna) gid=1003(aruna) groups=1003(aruna),1002(devops),1004(operations),1005(testing)
 [root@ip-172-31-26-93 ~]#
 
-
-
 Username --> Password
 passwd <username>
 
@@ -139,7 +136,7 @@ passwd is assigned to praveen
 
 /etc/ssh/sshd_config --> this is ssh configuration system file we need to be very cautious with this file
 in this file we need to make sure the password authentication is enabled
-before:
+before (default condition):
 PasswordAuthentication no
 after:
 PasswordAuthentication yes
@@ -163,13 +160,160 @@ When the result to this command is empty it means everything is fine
 /etc/ssh/sshd_config line 65: unsupported option "yes!".
 if there is any problem with the syntax it will throw error like above
 
+we need to restart systemctl to say that absorb new changes made in sshd
+systemctl restart sshd
 
+now we can ask the user to test the login
+praveen
+qwerty123
 
+you can ask praveen to login with the password
+Admin can share the Public IP and ask praveen to login via password
 
+ssh -i batch3 praveen@IP
+we do not need to provide batch3 private key as we have already enabled PasswordAuthentication yes in /etc/ssh/sshd_config
 
+now just give below command
 
+ssh secured shell
+ssh praveen@IP
+it will ask password; provide password
+qwerty123
 
+$ ssh praveen@54.227.65.47
+praveen@54.227.65.47's password:
+   ,     #_
+   ~\_  ####_        Amazon Linux 2023
+  ~~  \_#####\
+  ~~     \###|
+  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
+   ~~       V~' '->
+    ~~~         /
+      ~~._.   _/
+         _/ _/
+       _/m/'
+Last login: Sun Nov  2 06:27:03 2025 from 49.43.234.73
+[praveen@ip-172-31-26-93 ~]$ whoami
+praveen
+[praveen@ip-172-31-26-93 ~]$
 
+If we want to remove praveen/suresh user from a group
+gpasswd -d suresh operations
+this should be run in root user
+like this remove suresh from all the groups we have added suresh user earlier;
+now we can smoothly delete the suresh user
+userdel suresh
+if suresh is already logged in then we will see one error like below:
+userdel: user suresh is currently used by process 2036
 
+last is the command to know who all the users currently logged in
 
- 
+[root@ip-172-31-28-87 ~]# last
+suresh   pts/2        49.43.234.73     Mon Nov  3 04:43 - 04:50  (00:06)
+ec2-user pts/0        49.43.234.73     Mon Nov  3 04:37   still logged in
+reboot   system boot  6.1.156-177.286. Mon Nov  3 04:36   still running
+
+userdel suresh
+[root@ip-172-31-28-87 ~]# id suresh
+id: ‘suresh’: no such user
+
+==================================================
+To create Public and Private Key
+==================================================
+ssh-keygen -f <filename>
+
+ls -ltra
+.ssh --> hidden directory which actually holds the public key which we provided at the begining
+authorized_keys
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOBi6pYE9d2098cs58ZobYXBdyYaJ0h/IssbAfLPteLp prave@Sri_Karthikeya
+ssh -i batch3 ec2-user@IP
+
+suresh
+groupadd
+passwd suresh
+/etc/ssh/sshd_config
+PasswordAuthentication=yes
+
+ssh suresh@IP
+passwd
+
+## Sudoers allows particular users to run various commands as the root user, without needing the root password.
+## This file must be edited with the 'visudo' command.
+
+## Same thing without a password
+# %wheel        ALL=(ALL)       NOPASSWD: ALL
+
+## Allow root to run any commands anywhere
+root    ALL=(ALL)       ALL
+
+======================================================
+We need to create aruna user
+================================
+useradd aruna
+when aruna user is created
+passwd aruna
+qwerty123
+we will give passwd qwerty123
+ssh aruna@IP
+qwerty123
+===================================
+another way is through /home/aruna/.ssh/authorized_keys
+ask aruna to create a key pair
+ssh-keygen -f <aruna>
+aruna.pub
+aruna
+share aruna.pub to admin
+===================================
+admin will login as sudo su -
+admin has to create below file in the below location
+cd /home/aruna/
+mkdir .ssh
+cd /home/aruna/.ssh
+touch authorized_keys
+vim authorized_keys
+enter public id provided by aruna to admin save it in the below 
+
+he will navigate to /home/aruna/.ssh/authorized_keys
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEUFrQtmyVG3ZAW35RQW1SqMcqM6MgoCn3I8/cv6VGZk aruna
+========================================
+ask aruna to login via ssh -i aruna aruna@IP
+now she will be able to login
+ask her to try to install python
+yum install python
+it will throw error for sudo previliges
+try 
+sudo yum install python
+it will throw error for security reasons
+========================================
+add aruna to wheel group
+wheel group is sudo previliges group
+usermod -aG wheel aruna
+=======================================
+ask aruna to run sudo yum install python
+it will throw errors/ask password
+password will not be shared hence; she has to report error to admin again
+========================================
+admin will go to highly secured file /etc/sudoers
+he cannot directly modify this file
+he has to modify using visudo command
+visudo /etc/sudoers
+###### now aurna previliges will be made equal to root
+## Allow root to run any commands anywhere
+root    ALL=(ALL)       ALL
+aruna    ALL=(ALL)       ALL
+
+As aruna has already been added to wheel group it is important to be enabled
+## Allows people in group wheel to run all commands
+wheel   ALL=(ALL)       ALL
+
+##########Even now if aruna try to run sudo yum install python command it will ask for password in order to avoid this we need to eanble below lines in sudoers file
+
+## Same thing without a password
+%wheel  ALL=(ALL)       NOPASSWD: ALL 
+
+make sure to restart the machine and ask aruna to relogin to see the changes made are applied
+systemctl restart 
+somehting like below 
+sudo systemctl restart sudoers
+When all these steps are taken properly aruna can now run sudo yum install python command properly
+##########################
