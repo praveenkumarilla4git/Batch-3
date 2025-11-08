@@ -1,0 +1,88 @@
+sudo --> root user
+su --> supre user
+sudo --> Super User DO
+sudo su --> Super User Do Super User
+sudo su - --> Super User Do Super User <go to root dir>
+whoami
+
+we will install Apache/nginx
+if we want to access any website it should be available in the internet.
+protocols --> set of rules
+http
+https
+ssh
+
+Google server
+Application Google server install
+google.com
+web server --> Application (Developers) google server
+web server restrictions/permissions how will be designed or set or protocol
+
+ssh --> Protocol --> set of rules
+
+Security Groups --> Inbound and Outbound Rules
+
+secured shell --> ec2-user aws machine has been access
+ssh --> why ssh worked? Port --> 22
+
+ssh --> 22
+http --> 80
+https --> 443
+
+========================================
+Server IP
+IP ping inbound and outbound details 
+protocols --> we will decide
+
+Protocol means set of rules.
+=======================================
+
+Installations --> Some set of Dependencies and installers
+
+dnf --> Amazon Linux
+dnf install <name of the package>
+
+yum install git -y
+Amazon EC2 instances Amazon AMI Linux
+dnf is the latest command compared to yum previously it is called as yum
+
+Example: Database --> Create a row in DB --> 
+Create
+Read
+Update
+Delete
+
+
+yum install git -y
+dnf install git -y
+dnf remove git -y
+dnf install python -y
+dnf install nginx -y
+dnf install git -y
+git --version
+nginx --version
+python --version
+dnf remove git
+/usr/bin/dnf
+dnf list --> lists all the dnf packages in the machine
+dnf list available --> which are ready to use are listed
+dnf list installed --> which are installed in the machine
+
+while in root user:
+dnf install nginx -y
+systemctl start nginx 
+systemctl status nginx
+systemctl stop nginx
+
+ps --> process
+
+ps --> which lists out all the processes running linux
+ps -ef 
+
+always do http://<private-ip>
+
+
+
+
+
+
