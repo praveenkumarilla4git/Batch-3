@@ -412,6 +412,39 @@ if (( num % 2 == 0 )); then
 else
   echo "$num is odd"
 fi
+================================================================================
+sudo yum install git -y
+sudo yum install python -y
+
+conditions
+----------------
+
+if (expression) {
+		statement/command to execute if expression is true this will execute
+}
+else{
+		statement if expression is false this will execute
+}
+
+
+
+
+if (expression) {
+		statement if expression is true this will execute
+}
+else if (expression) {
+}
+else if (expression) {
+}
+else if (expression) {
+}
+else if (expression) {
+}
+else{
+		statement if expression is false this will execute
+}
+
+================================================================================
 
 4) file_check.sh
 # Script: file_check.sh - Purpose: Check file existence and size

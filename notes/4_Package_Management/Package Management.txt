@@ -47,10 +47,36 @@ Amazon EC2 instances Amazon AMI Linux
 dnf is the latest command compared to yum previously it is called as yum
 
 Example: Database --> Create a row in DB --> 
+
 Create
 Read
 Update
 Delete
+
+CRUD --> Create Read Update Delete
+
+CREATE
+file create
+touch
+mkdir --> make directory 
+
+READ
+cat 
+
+UPDATE
+cat > replace exisitng content
+cat >> appends exisitng content
+
+if we need to do the update the content into file then this is the one command we can use
+cat > <filename>
+Ctrl+ D --> to save and exit
+> Replace the existing content
+>> Appends the existing content
+
+DELETE
+remove file and folders
+rm <filename>
+rm DevOps --> removes empty directory
 
 
 yum install git -y
@@ -73,16 +99,48 @@ dnf install nginx -y
 systemctl start nginx 
 systemctl status nginx
 systemctl stop nginx
+systemctl restart nginx
 
 ps --> process
 
 ps --> which lists out all the processes running linux
 ps -ef 
+kill <PID> --> Process ID
+kill <PPID> --> Parent Process ID
+kill -9 <PID>
+kill -9 <PPID>
+always do http://<public-ip>
 
-always do http://<private-ip>
 
+===============================================================
+sudo dnf update -y
+sudo dnf install -y https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
+sudo dnf repolist enabled | grep mysql
+sudo dnf install -y mysql-community-server
+ps -ef | grep mysqld
+sudo systemctl start mysqld
+sudo systemctl status mysqld
+sudo systemctl enable mysqld
+sudo systemctl status mysqld
+===============================================================
+ec2-user
+shell script --> createdb1.sh
+shell script --> createdb2.sh
+user --> Database1
+User --> Database2
+Database1 --> Sudo
+Database2 --> Sudo
 
+Database1 --> installdb.sh
+sudo dnf update -y
+sudo dnf install -y https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
+sudo dnf repolist enabled | grep mysql
+sudo dnf install -y mysql-community-server
+ps -ef | grep mysqld
+sudo systemctl start mysqld
+sudo systemctl status mysqld
+sudo systemctl enable mysqld
+sudo systemctl status mysqld
 
-
-
-
+Database2 --> 
+================================================================
