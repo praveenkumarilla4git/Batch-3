@@ -1,0 +1,49 @@
+Amazon console --> EC2 --> Ec2 name --> AMI --> Communities --> devops-practice --> ec2-user --> DevOps321
+
+mysql
+================================================
+install mysql
+================================================
+sudo su -
+sudo dnf install mysql-server -y 
+sudo systemctl status mysqld
+sudo systemctl start mysqld
+netstat -lntp
+default port number for mysql = 3306
+
+default admin name is root
+so we need to set up a password for this default admin root
+mysql_secure_installation --set-root-pass database@1 (your choice)
+
+mysql
+mysql -u your_username -p<password>
+
+show DATABASES;
+use mysql;
+show TABLES;
+CREATE DATABASE school;
+USE school;
+SHOW TABLES;
+CREATE TABLE student (roll_no INT PRIMARY KEY, name VARCHAR(50), class VARCHAR(20));
+SHOW TABLES;
+INSERT INTO student (roll_no, name, class) VALUES (1, 'Sai', '5');
+SELECT * FROM student;
+ALTER TABLE student
+    -> ADD COLUMN english INT DEFAULT NULL;
+
+UPDATE student
+SET english = 90
+WHERE name = 'Sai';
+
+===========================================
+I have created a new App Server and use that App server to install the nodejs into it and use it to connect with DB in later stages
+
+sudo dnf module enable nodejs:20 -y
+sudo dnf install nodejs -y
+
+
+
+
+
+
+

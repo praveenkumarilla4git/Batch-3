@@ -144,3 +144,76 @@ sudo systemctl status mysqld
 
 Database2 --> 
 ================================================================
+
+
+Linux Box --> Amazon Machine Image 
+Linux --> Kernel = talks to the hardware
+humnas directly cannot talk to Kernel; so Shell will help Humans to talk to Kernel
+Linux = Operating System
+Kernel --> Hardware
+we take help of shell
+
+===========================
+Linux --> RHEL 
+
+Unix --> OS Kernel Hardware 
+Linux --> OS Kernel Hardware
+Kernel --> Issue --> Community --> Open Source
+RHEL --> Kernel --> support --> charges
+Git hub
+============================
+User Name: ec2-user
+Password: DevOps321
+
+
+Linux ---> Kernel --> RHEL
+
+ssh ec2-user@3.237.95.74
+
+Database
+=====================
+Database Server = DB Node = DB Box = DB1
+RDBMS = Relational Data Base Management System
+tables are internally related to each other
+Rows and Columns and Tables
+There is some relation between tables
+
+We will be having Admins to manage Databases
+MySQL, MongoDB 
+
+
+database software installation
+================================
+steps:
+sudo su -
+dnf install mysql-server -y
+systemctl status mysqld
+systemctl start mysqld
+systemctl status mysqld
+
+to find the port of any software installed in the linux box we need to run the command netstat -lntp
+
+netstat -lntp
+
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1254/sshd: /usr/sbi
+tcp6       0      0 :::33060                :::*                    LISTEN      1910/mysqld
+tcp6       0      0 :::22                   :::*                    LISTEN      1254/sshd: /usr/sbi
+tcp6       0      0 :::3306                 :::*                    LISTEN      1910/mysqld
+
+
+we need to set password
+=======================
+default admin username is root
+mysql_secure_installation is used to set the username and password
+=======================================================================
+mysql_secure_installation --set-root-pass testingdb@1
+=======================================================================
+mysql --> we will enter into DB
+mysql> show databases;
+mysql> CREATE DATABASE school
+
+======================================================
+Database --> Tables --> Rows and Columns --> DATA SAVE
+======================================================
