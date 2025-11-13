@@ -13,7 +13,7 @@ default port number for mysql = 3306
 
 default admin name is root
 so we need to set up a password for this default admin root
-mysql_secure_installation --set-root-pass database@1 (your choice)
+mysql_secure_installation --set-root-pass database@1
 
 mysql
 mysql -u your_username -p<password>
@@ -40,6 +40,66 @@ I have created a new App Server and use that App server to install the nodejs in
 
 sudo dnf module enable nodejs:20 -y
 sudo dnf install nodejs -y
+
+=============================================
+Project
+=============================================
+CREATE DATABASE school_db;
+USE school_db;
+
+CREATE TABLE student_marks (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(50),
+   roll_number VARCHAR(10),
+   class VARCHAR(5),
+   unit VARCHAR(20),
+   english INT,
+   hindi INT,
+   telugu INT,
+   maths INT,
+   science INT,
+   social INT
+);
+
+select * from student_marks;
+
+===============================
+in python local win machine
+===============================
+pip install mysql-connector-python
+this will install python module which helps to connect communicate with db from python
+================================
+python.exe -m pip install --upgrade pip
+run this if this pip upgrade is prompted in the terminal in win python ide
+=====================================
+import mysql.connector
+
+# Connect to MySQL
+conn = mysql.connector.connect(
+    host='your-ec2-ip-or-localhost',
+    user='root',
+    password='yourpassword',
+    database='school_db'
+)
+
+cursor = conn.cursor()
+
+# Insert example data for one unit (Unit 1)
+sql = "INSERT INTO student_marks (name, roll_number, class, unit, english, hindi, telugu, maths, science, social) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+values = (name, roll_number, student_class, "Unit 1", english_marks, hindi_marks, telugu_marks, maths_marks, science_marks, social_marks)
+
+cursor.execute(sql, values)
+conn.commit()
+
+print(cursor.rowcount, "record inserted.")
+
+cursor.close()
+conn.close()
+
+vim /etc/my.cnf.d/mysql-server.cnf
+here make changes and append this line
+bind-address = 0.0.0.0
+
 
 
 
