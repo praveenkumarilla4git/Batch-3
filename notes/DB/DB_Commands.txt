@@ -17,6 +17,8 @@ mysql_secure_installation --set-root-pass database@1
 
 mysql
 mysql -u your_username -p<password>
+mysql -u root -p
+database@1
 
 show DATABASES;
 use mysql;
@@ -38,6 +40,7 @@ WHERE name = 'Sai';
 ===========================================
 I have created a new App Server and use that App server to install the nodejs into it and use it to connect with DB in later stages
 
+sudo dnf module disable nodejs -y
 sudo dnf module enable nodejs:20 -y
 sudo dnf install nodejs -y
 
@@ -99,6 +102,260 @@ conn.close()
 vim /etc/my.cnf.d/mysql-server.cnf
 here make changes and append this line
 bind-address = 0.0.0.0
+
+
+============================
+14th Nov 2025
+=============================
+
+#############EC2 Instance Creation db########
+us-east-1
+Name of EC2 instance: studentapp-db
+AMI: RHEL9-DevOps-practice
+t3.micro
+Key Pair --> Proceed without key pair
+security group --> everything
+ssh ec2-user@<public ip>
+DevOps321
+
+############################################
+For now my public ip is 98.92.40.188
+############################################
+ssh ec2-user@34.236.37.23
+#######Install mysql-server ################
+sudo dnf install mysql-server -y
+sudo systemctl start mysqld
+
+************* After this we have provided as database@1 ******************************************
+[ ec2-user@ip-172-31-73-154 ~ ]$ mysql_secure_installation
+
+mysql_secure_installation --set-root-pass database@1
+mysql_secure_installation --set-admin-pass database@1
+
+Securing the MySQL server deployment.
+
+Connecting to MySQL using a blank password.
+
+VALIDATE PASSWORD COMPONENT can be used to test passwords
+and improve security. It checks the strength of password
+and allows the users to set only those passwords which are
+secure enough. Would you like to setup VALIDATE PASSWORD component?
+
+Press y|Y for Yes, any other key for No: n
+Please set the password for root here.
+
+New password:
+
+Re-enter new password:
+By default, a MySQL installation has an anonymous user,
+allowing anyone to log into MySQL without having to have
+a user account created for them. This is intended only for
+testing, and to make the installation go a bit smoother.
+You should remove them before moving into a production
+environment.
+
+Remove anonymous users? (Press y|Y for Yes, any other key for No) : No
+
+ ... skipping.
+
+
+Normally, root should only be allowed to connect from
+'localhost'. This ensures that someone cannot guess at
+the root password from the network.
+
+Disallow root login remotely? (Press y|Y for Yes, any other key for No) : No
+
+ ... skipping.
+By default, MySQL comes with a database named 'test' that
+anyone can access. This is also intended only for testing,
+and should be removed before moving into a production
+environment.
+
+
+Remove test database and access to it? (Press y|Y for Yes, any other key for No) : No
+
+ ... skipping.
+Reloading the privilege tables will ensure that all changes
+made so far will take effect immediately.
+
+Reload privilege tables now? (Press y|Y for Yes, any other key for No) : No
+
+ ... skipping.
+All done!
+
+*****************************************************************************************************
+sudo systemctl stop mysqld
+#####################################################################################################
+Now we need to allow the database to be accessible for our python program when run from windows so we need to make bind-address to 0.0.0.0
+
+Open the below file
+sudo vi /etc/my.cnf.d/mysql-server.cnf
+find section [mysqld] append the below line at the bottom:
+bind-address = 0.0.0.0
+sudo vim my.cnf
+bind-address = 0.0.0.0
+#####################################################################################################
+########################in order to apply the cahnges we need to run restart#########################
+sudo systemctl start mysqld
+sudo systemctl status mysqld
+#############################################
+sudo mysql -u root -p
+admin also create here 
+password database@2
+
+now login to mysql database (mind that till now we are operating in the ec2-user terminal only)
+to login to mysql it is mysql (if you are in root user) or 
+mysql -u root -p
+give the password database@1
+###################
+create a new database school_db
+*****************
+create database school_db;
+****************
+################################
+##############################################
+Now while we running the python program it should connect to our database and do the CRUD operations as required hence we want to re confirm and make sure the changes can be done via python script so we are using the below command to grant these necessary permissions
+##############################################
+GRANT ALL PRIVILEGES ON school_db.* TO 'root'@'%' IDENTIFIED BY 'database@1';
+
+MySQL root user permission to perform all possible actions on the school_db database from any remote host (% means any IP address) using the password database@1.
+
+FLUSH PRIVILEGES;
+reloads MySQL’s internal privilege tables to make sure all recent permission changes become active immediately
+##############################################
+
+##################Run the below commands in mysql prompt######################
+CREATE DATABASE IF NOT EXISTS school_db;
+USE school_db;
+
+CREATE TABLE IF NOT EXISTS student_marks (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  roll_number VARCHAR(50) NOT NULL,
+  class VARCHAR(50) NOT NULL,
+  unit VARCHAR(20),
+  english INT,
+  hindi INT,
+  telugu INT,
+  maths INT,
+  science INT,
+  social INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+####################################
+Now we are good with the DB server and we have created db and updated table with default values we need to use this ad DB server.
+For our student app application db set up is now completed
+now we have to run the python program locally in windows initailly a simple program is used 
+then we run the same program in ec2 instance
+but as already discussed
+we are keeping the db server seperately and application server seperately 
+we will now create a new application server and git clone our simple python program (which was running in windows) and run it in the application server ec2-user
+so now we will create application server ec2 user
+#####################################
+#############EC2 Instance Creation app########
+us-east-1
+Name of EC2 instance: studentapp-web
+AMI: RHEL9-DevOps-practice
+t3.micro
+Key Pair --> Proceed without key pair
+security group --> everything
+ssh ec2-user@<public ip>
+DevOps321
+############################################
+############  Make sure this python program is running fine in windows ###############
+# student_basic_details2.py
+import mysql.connector
+
+# Ask user for MySQL host (EC2 Public IP)
+db_host = input("Enter your EC2 Public IP or MySQL Host: ")
+
+# Ask for student details
+name = input("Enter the student's name: ")
+roll_number = input("Enter the student's roll number: ")
+student_class = input("Enter the student's class: ")
+
+print("\nStudent Details:")
+print(f"Name: {name}")
+print(f"Roll Number: {roll_number}")
+print(f"Class: {student_class}")
+
+# Unit 1 marks
+english_marks = int(input("English Unit 1 (out of 25): "))
+hindi_marks = int(input("Hindi Unit 1 (out of 25): "))
+telugu_marks = int(input("Telugu Unit 1 (out of 25): "))
+maths_marks = int(input("Maths Unit 1 (out of 25): "))
+science_marks = int(input("Science Unit 1 (out of 25): "))
+social_marks = int(input("Social Unit 1 (out of 25): "))
+
+# Unit 2 marks
+print("\nEnter Unit 2 Marks:")
+english_u2 = int(input("English (out of 25): "))
+hindi_u2 = int(input("Hindi (out of 25): "))
+telugu_u2 = int(input("Telugu (out of 25): "))
+maths_u2 = int(input("Maths (out of 25): "))
+science_u2 = int(input("Science (out of 25): "))
+social_u2 = int(input("Social (out of 25): "))
+
+# Quarterly marks
+print("\nEnter Quarterly Marks:")
+english_q = int(input("English (out of 25): "))
+hindi_q = int(input("Hindi (out of 25): "))
+telugu_q = int(input("Telugu (out of 25): "))
+maths_q = int(input("Maths (out of 25): "))
+science_q = int(input("Science (out of 25): "))
+social_q = int(input("Social (out of 25): "))
+
+# Connect to MySQL Database
+conn = mysql.connector.connect(
+    host=db_host,
+    user='admin',          # your MySQL username
+    password='database@1', # your MySQL password
+    database='school_db'
+)
+
+cursor = conn.cursor()
+
+# Insert into database (Unit 1)
+sql = """INSERT INTO student_marks 
+(name, roll_number, class, unit, english, hindi, telugu, maths, science, social) 
+VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+"""
+cursor.execute(sql, (name, roll_number, student_class, "Unit 1",
+                     english_marks, hindi_marks, telugu_marks,
+                     maths_marks, science_marks, social_marks))
+conn.commit()
+
+# Insert Unit 2
+cursor.execute(sql, (name, roll_number, student_class, "Unit 2",
+                     english_u2, hindi_u2, telugu_u2,
+                     maths_u2, science_u2, social_u2))
+conn.commit()
+
+# Insert Quarterly
+cursor.execute(sql, (name, roll_number, student_class, "Quarterly",
+                     english_q, hindi_q, telugu_q,
+                     maths_q, science_q, social_q))
+conn.commit()
+
+print("\nAll marks submitted successfully!")
+
+cursor.close()
+conn.close()
+
+####################################
+login to studentapp-web
+ssh ec2-user@<Public-IP>
+###################################
+install git and python with sudo access
+sudo dnf install git -y | sudo dnf install python -y
+
+#########################################################
+pip uninstall mysql-connector mysql-connector-python -y
+pip install mysql-connector-python
+pip show mysql-connector-python
+
 
 
 
