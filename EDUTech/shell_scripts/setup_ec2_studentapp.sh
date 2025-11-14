@@ -4,7 +4,7 @@ set -o pipefail
 set -x
 
 # Become root
-sudo su -
+#sudo su -
 
 # Update metadata (optional, good practice)
 sudo dnf makecache --refresh
