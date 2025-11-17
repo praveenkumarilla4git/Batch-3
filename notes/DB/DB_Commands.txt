@@ -105,13 +105,14 @@ bind-address = 0.0.0.0
 
 
 ============================
-14th Nov 2025
+17th Nov 2025
 =============================
 
 #############EC2 Instance Creation db########
 us-east-1
 Name of EC2 instance: studentapp-db
-AMI: RHEL9-DevOps-practice
+AMI --> Community AMIs
+AMI: RHEL-9-DevOps-Practice
 t3.micro
 Key Pair --> Proceed without key pair
 security group --> everything
