@@ -17,13 +17,15 @@ school_name = input("Enter School Name: ")
 school_branch = input("Enter School Branch: ")
 student_name = input("Enter Student Name: ")
 student_roll = input("Enter Student Roll Number: ")
+student_class = input("Enter Student Class: ")
+maths_unit1_marks = input("Enter Student maths_unit1_marks: ")
 
 # Insert collected data into DB
 conn = mysql.connector.connect(**db_config)
 cur = conn.cursor()
 cur.execute(
-    "INSERT INTO student_basic (school_name, school_branch, student_name, student_roll) VALUES (%s, %s, %s, %s)",
-    (school_name, school_branch, student_name, student_roll)
+    "INSERT INTO student_basic (school_name, school_branch, student_name, student_roll, student_class, maths_unit1_marks) VALUES (%s, %s, %s, %s, %s, %s)",
+    (school_name, school_branch, student_name, student_roll, student_class, maths_unit1_marks)
 )
 conn.commit()
 cur.close()
