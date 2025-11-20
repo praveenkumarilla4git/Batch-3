@@ -46,8 +46,8 @@ Weblogic Websphere JBOSS (GB space)
 ===========================================================
 Monolithic Applications
 =======================
-Frontend --> Seperate
-Backend --> Seperate
+Frontend --> Seperate <hi>
+Backend --> Seperate <hello>
 DB seperate 
 Utilities --> standalone
 Tomcat Apache Web servers (MBs)
@@ -88,14 +88,22 @@ sudo systemctl enable docker
 sudo systemctl start --now docker
 sudo systemctl enable --now docker
 
-docker group will be created
+
+docker group will be created as soon as we install docker
 we need to add user to docker group
 only root user and users which will be added into docker group will have access to the docker command line interface (cli)
 
 
 sudo docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 sudo su - --> switch to root user
 
+usermod -aG docker ec2-user
+exit
+exit
+docker ps --> all running containers
+
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
 AMI = Operating System + System Packages + App run time + App code + App + Libraries
 5-8 GB
@@ -110,6 +118,45 @@ You dont need any unnecessary applications/process
 Images stable, in the sense they will not change; static
 Server version of OS --> like containers
 
-
 docker ps
 docker pull nginx
+
+
+Docker Image = Bare Minimum OS + System Packages + App run time + App code + App Libraries
+
+docker images --> local images present in the docker
+docker pull nginx:perl
+docker images
+
+Create your own docker hub account like we did for git hub
+
+===========================================================================================
+docker hub
+
+docker pull
+docker create name/image 
+docker container id
+docker start with contatiner id
+
+docker commands:
+==================================================
+docker create nginx:latest
+eea69d178509062ee7968006e1c9ec7540e334ac7a60774560bb3c6c3e54491d
+
+docker ps
+docker ps -a
+
+docker run nginx
+docker run -d nginx
+ docker rm -f 4313c6307b72
+docker stop 
+docker rmi 8a12ca7fe296
+
+
+First do the docker pull
+docker create
+docker start
+ 
+
+
+

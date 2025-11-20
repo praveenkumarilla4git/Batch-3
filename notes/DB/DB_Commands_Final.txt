@@ -60,7 +60,7 @@ ALTER TABLE student_basic ADD COLUMN maths_unit1_marks INT;
 Python code for adding new entries into TABLE (class and marks)
 
 =============================================
-import mysql.connector
+import mysql.connector # for this to run first upgrade pip and install pip install mysql-connector-python
 
 # Ask user for the DB host/IP
 db_host = input("Enter the host/IP address of the studentapp-db MySQL server: ")
