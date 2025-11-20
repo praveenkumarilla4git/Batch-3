@@ -1,0 +1,115 @@
+===========================
+Joint Family
+Father Mother
+9 children
+9 * 3 
+Rooms 
+Kitchen
+Cattle
+godown 
+Devudu 
+Electricity
+===========================
+Dad Mom
+Nenu Bro
+Flat
+Electricity
+===========================
+PG
+Bag
+Laptop
+Room
+Electricity
+===========================
+
+
+=========================================================
+Main Enterprise Application
+=========================================================
+Java/.NET/Python Framework
+HTMl CSS Javascript --> Frontend
+JEE --> Java Enterprise Edition
+
+Banking Application
+.exe .tar .java
+Front End + Back End + Application + DB + Utilities
+jar --> java archive
+war --> web archive file --> Enterprises
+ear -- enterprise archive file
+
+Advantages:
+Communications between resources is always easy
+Disadvantages:
+Frontend backend DB Utilities
+.war --> web archive file --> Enterprises
+Weblogic Websphere JBOSS (GB space)
+===========================================================
+Monolithic Applications
+=======================
+Frontend --> Seperate
+Backend --> Seperate
+DB seperate 
+Utilities --> standalone
+Tomcat Apache Web servers (MBs)
+===========================
+Microservices Applications
+===========================
+Profile
+Holdings
+Postions
+APIs 
+MBs (kbs)
+==================================================================
+Containers
+
+
+
+
+Virtualization			Containarization
+Costly					Cheaper
+Boot time is more		Boot time is less
+More Size				Less size
+resources utilization	resources utilization is effective
+privacy					less privacy
+portability heavy		portability lite
+
+
+===================================================================
+"Docker"
+===================================================================
+install docker
+https://docs.docker.com/engine/install/rhel/
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl start --now docker
+sudo systemctl enable --now docker
+
+docker group will be created
+we need to add user to docker group
+only root user and users which will be added into docker group will have access to the docker command line interface (cli)
+
+
+sudo docker ps
+sudo su - --> switch to root user
+
+
+AMI = Operating System + System Packages + App run time + App code + App + Libraries
+5-8 GB
+
+Docker Image = Bare Minimum OS
+MBs
+ 
+Application must and should 
+
+You dont need any unnecessary applications/process
+
+Images stable, in the sense they will not change; static
+Server version of OS --> like containers
+
+
+docker ps
+docker pull nginx
