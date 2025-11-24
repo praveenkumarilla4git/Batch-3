@@ -148,7 +148,7 @@ docker ps -a
 
 docker run nginx
 docker run -d nginx
- docker rm -f 4313c6307b72
+docker rm -f 4313c6307b72
 docker stop 
 docker rmi 8a12ca7fe296
 
@@ -156,6 +156,62 @@ docker rmi 8a12ca7fe296
 First do the docker pull
 docker create
 docker start
+
+===================================================================================================
+Image = bare minimum OS + System Packeges + Application Run time + Application Code + Dependencies
+
+Docker Image
+Docker hub
+
+Image run --> meaning container; container runs 
+
+docker ps --> All running docker containers
+docker ps -a --> All containers
+docker images --> images available in servers
+docker pull <image-name>:latest --> pulls the image from docker hub
+docker create ImageID --> creates a container from image
+docker start containerID --> starts the container
+
+docker run = pull + create + start
+screen will be occupied and we cannot do anything else
+docker run -d
+Allocate proper port to the docker containers as below and also run that in detach mode
+
+
+========================================================
+systemctl start docker
+systemctl enable docker
+usermod -aG docker ec2-user
+docker run -d -p <host-port>:<container-port> nginx
+docker run -d -p 80:80 nginx
+docker ps
+http://3.236.209.8 --> Public IP
+http://3.236.209.8:8070
+http://3.236.209.8:80
+docker images
+systemctl status docker
+
+docker run -d -p 80:80 nginx
+
+Fincal command list:
+sudo docker pull nginx
+docker images
+sudo docker create nginx:latest
+docker ps -a
+docker run -d nginx
+docker rm -f 4313c6307b72  --> force remove the container
+sudo docker create 553f64aecdc3 --> again create the container 
+docker run -d nginx
+docker stop
+docker run -d nginx
+docker run -d -p <host-port>:<container-port> nginx
+docker run -d -p 1234:80 nginx
+http://3.236.88.136:1234
+http://3.236.88.136:9876
+docker run -d -p 9876:80 nginx
+
+
+
  
 
 
