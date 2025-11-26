@@ -1,0 +1,108 @@
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+usermod -aG docker ec2-user
+sudo docker ps
+sudo docker pull nginx
+docker images
+sudo docker create nginx:latest
+docker ps -a
+docker run -d nginx
+docker rm -f 4313c6307b72  --> force remove the container
+sudo docker create 553f64aecdc3 --> again create the container 
+docker run -d nginx
+docker stop
+docker run -d nginx
+docker run -d -p <host-port>:<container-port> nginx
+docker run -d -p 1234:80 nginx
+http://3.236.88.136:1234
+http://3.236.88.136:9876
+docker run -d -p 9876:80 nginx
+
+create ec2-instance
+ocker run -d -p <host-port>:<container-port> tomcat
+
+similarly try to create for tomcat
+docker pull tomcat:latest
+docker run -d -p 4599:80 tomcat:latest
+http://3.236.88.136:4599
+
+http://localhost:8888
+
+========================================================================
+sudo lsblk
+sudo su -
+df -hT
+free
+vgs
+vgdisplay
+from these command you know actual size of the existing /var then grow its size from other empty spaces and add it to here
+growpart /dev/nvme0n1 4
+partition=4: Refers to the fourth partition (nvme0n1p4).
+
+start=1253376: The starting sector (location) on the disk for this partition remains unchanged.
+
+old: size=40687616 end=41940991: Previously, the partition was 40,687,616 sectors in size and ended at sector 41,940,991.
+
+new: size=103604191 end=104857566: Now, the partition is 103,604,191 sectors in size and ends at sector 104,857,566.
+
+This change makes partition 4 much larger, allowing it to use extra disk space you freed or added at the end of the disk.
+
+You still need to resize the physical volume (if using LVM), the logical volume, and finally the filesystem, so the system and applications (such as Docker in /var) can actually use the newly available space.
+
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+sudo usermod -aG docker ec2-user
+sudo docker ps
+sudo docker ps -a
+sudo docker run nginx --> cant do other operations
+sudo docker run -d nginx
+sudo docker ps
+sudo docker ps -a
+sudo docker images
+sudo docker ps
+sudo docker rm <ContainerID>
+sudo docker rm -f <ContainerID>
+sudo docker ps
+sudo docker ps -a
+sudo docker run -d -p 80:80 nginx
+http://44.221.89.214
+we cannot use this port again as this is blocked by nginx
+docker run -d -p 8080:80 nginx
+docker exec -it container-id bash
+docker exec -it 7d124304b32b bash
+cd /usr/share/nginx/html
+
+echo "<html><body><h1>Hi everyone, good night</h1></body></html>" > /usr/share/nginx/html/index.html
+
+sudo docker inspect <containerID>
+sudo docker inspect image
+
+
+========================================
+Student details python
+students details recieved
+student db
+
+We need to create docker image
+Image 
+docker image --> bare minimum OS + Sytem Packeges + Application Runtime + App code + dependencies
+is we set everything which is required into one container, container is running
+
+
+Docker File --> set of instructions to build an custom image
+
+
+
+
+
+
+
