@@ -1,28 +1,3 @@
-===========================
-Joint Family
-Father Mother
-9 children
-9 * 3 
-Rooms 
-Kitchen
-Cattle
-godown 
-Devudu 
-Electricity
-===========================
-Dad Mom
-Nenu Bro
-Flat
-Electricity
-===========================
-PG
-Bag
-Laptop
-Room
-Electricity
-===========================
-
-
 =========================================================
 Main Enterprise Application
 =========================================================
@@ -209,6 +184,8 @@ docker run -d -p 1234:80 nginx
 http://3.236.88.136:1234
 http://3.236.88.136:9876
 docker run -d -p 9876:80 nginx
+
+docker --version
 
 
 
