@@ -1,0 +1,34 @@
+mkdir mypythonapp
+cd mypythonapp
+cat app.py
+cat > app.py << 'EOF'
+print("Hello from Python inside Docker on EC2!")
+EOF
+=========================
+cat > Dockerfile << 'EOF'
+FROM python:3.10-slim
+
+COPY app.py /app.py
+
+CMD ["python", "/app.py"]
+EOF
+=====================
+sudo docker build -t mypythonapp .
+=====================
+sudo docker run mypythonapp
+====================
+sudo docker images
+==================
+sudo docker login
+=================
+sudo docker tag mypythonapp:latest praveenkumarilla4ki/mydockerimages:mypythonapp
+sudo docker tag mypythonapp2:latest praveenkumarilla4ki/mydockerimages:mypythonapp2
+=========================================================================
+sudo docker push praveenkumarilla4ki/mydockerimages:mypythonapp
+=========================================================================
+sudo docker pull praveenkumarilla4ki/mydockerimages:mypythonapp
+===========================================================
+Others can pull this image with below command
+docker pull praveenkumarilla4ki/mypythonapp:latest
+========================================================
+
