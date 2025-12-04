@@ -1,0 +1,41 @@
+https://www.docker.com/products/docker-desktop/
+After app.py
+============================
+Create Dockerfile: Dockerfile inside FLASK-DEMO
+
+=============================
+# 1. Base Image: We specifically ask for Python 3.13.2 (Slim version)
+FROM python:3.13.2-slim
+
+# 2. Work Directory: Create a folder inside the container called /app
+WORKDIR /app
+
+# 3. Install Dependencies: Run pip inside the container
+RUN pip install flask
+
+# 4. Copy Code: Copy app.py from Windows to the container
+COPY app.py .
+
+# 5. Command: Run the app when container starts
+CMD ["python", "app.py"]
+
+
+
+=========================
+change the last lines of app.py to below:
+
+if __name__ == "__main__":
+    # Change host to '0.0.0.0' so Docker can talk to it
+    app.run(host='0.0.0.0', port=5000)
+	
+====================================
+docker version
+	
+==============================
+docker build -t my-windows-flask-app22 .
+docker tag my-windows-flask-app22:latest praveenkumarilla459/mydockerimages:my-windows-flask-app22
+docker push praveenkumarilla459/mydockerimages:my-windows-flask-app22
+docker pull praveenkumarilla459/mydockerimages:my-windows-flask-app22
+====================================
+docker run -d -p 5000:5000 --name my-running-app my-windows-flask-app
+docker pull praveenkumarilla459/mydockerimages:my-windows-flask-app22
