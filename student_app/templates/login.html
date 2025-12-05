@@ -1,0 +1,31 @@
+<!doctype html>
+<title>Login</title>
+<h1>Login</h1>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class=flashes>
+        {% for category, message in messages %}
+            <li style="color:red;">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<form method="POST">
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email" required><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+    <input type="submit" value="Log In">
+</form>
+
+<p>
+    <a href="{{ url_for('index') }}">Go Home</a>
+</p>
+
+<h2>Test Users:</h2>
+<ul>
+    <li>Admin: admin@school.com / adminpass</li>
+    <li>Teacher: teacher@school.com / teachpass</li>
+    <li>Student: student@school.com / studpass</li>
+</ul>

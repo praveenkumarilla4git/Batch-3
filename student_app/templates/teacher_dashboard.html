@@ -1,0 +1,32 @@
+<!doctype html>
+<title>Teacher Dashboard</title>
+<h1>Welcome, Teacher!</h1>
+<p><a href="{{ url_for('logout') }}">Logout</a></p>
+
+<h2>Enter Student Details</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class=flashes>
+        {% for category, message in messages %}
+            <li style="color:green;">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<form method="POST">
+    <label for="school_name">School Name:</label><br>
+    <input type="text" id="school_name" name="school_name" required><br><br>
+
+    <label for="school_branch">School Branch:</label><br>
+    <input type="text" id="school_branch" name="school_branch" required><br><br>
+
+    <label for="student_name">Student Name:</label><br>
+    <input type="text" id="student_name" name="student_name" required><br><br>
+
+    <label for="student_roll">Student Roll Number (for now):</label><br>
+    <input type="text" id="student_roll" name="student_roll" required><br><br>
+
+    <input type="submit" value="Save Student Details to DB">
+</form>

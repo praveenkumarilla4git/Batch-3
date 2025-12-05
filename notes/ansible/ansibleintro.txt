@@ -1,0 +1,125 @@
+DevOps
+Git
+Linux
+Shell
+Docker
+Shell --> Series of commands automate
+Ansible
+
+Shell:
+Automation
+
+.sh
+
+
+Ansible
+
+If we want to run the shell scripts in multiple machines then we can use Ansible
+
+
+File --> 
+file 1 --> 1
+file 2 --> 2
+file 3 --> 3
+file 2000 --> 1000
+
+myscript.sh
+x = if ($cart_value > 1000)
+then
+$cart_value - 1000
+
+12 AM 11:59 PM
+How many are billions
+
+categarize
+US
+India
+Japan
+
+==================
+HOST=<file.txt>server
+Group: INDIA
+file.txt
+1.1.1.1
+100.100.100.100
+file 1
+file 10000
+======================
+
+YAML
+
+yml
+Hosts present in INDIA group
+download myscript.sh
+check time 12 AM > 11.59 PM
+then 
+execute myscript.sh
+
+ 
+ 
+ 
+ ================================================
+ Ansible open source
+ Ansible Tower --> Paid or subscribed
+ ================================================
+ 
+ 
+ 
+ DevOps
+ Banking Project
+ nodejs vulnerability
+ /etc/my.cnf bind-addresss --> 0.0.0.0.0
+ 
+ banking network
+ 
+ Dev Team
+ Suresh
+ 
+ QA Team
+ Sai
+
+
+Ansible
+As soon as 
+suresh machine and sai machine
+ping test
+
+Ansible
+YAML
+admin previliges tho
+login admin/admin
+nodejs vulnerability fix deploy chesta
+
+Hosts suresh (Dev) and sai (QA)
+
+Inventory (all target machines --> ping test success) node js deploy
+
+9 hrs
+1 hrs
+
+Ansible Configuration Automation tool
+
+
+Master - Slave configuration 
+
+Chef/Puppet --> 
+
+Ansible agentless
+
+Student app ---> image ---> docker hub ---> team members --> 
+Ansible --> docker --> Docker SWARM ---> 
+
+ANSIBLE 
+HOST
+
+=================
+sudo dnf install ansible -y
+ansible --version
+ansible all -i 44.200.73.161, -e ansible_user=ec2-user -e ansible_password=DevOps321 -m ping
+
+ansible all -i 44.200.73.161, -e ansible_user=ec2-user -e ansible_password=DevOps321 -m dnf -a "name=nginx" --become
+
+
+
+
+
