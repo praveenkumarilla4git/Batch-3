@@ -1,0 +1,2 @@
+pwd, ls, cd, tree
+Create notes for the above commands

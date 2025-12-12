@@ -1,0 +1,122 @@
+---
+- name: Install Apache, Nginx and Tomcat on RHEL web servers
+  hosts: web
+  become: yes
+
+  vars:
+    tomcat_version: 9.0.89
+    tomcat_install_dir: /opt/tomcat
+    tomcat_service_name: tomcat
+
+  tasks:
+    # ---------- Common prep ----------
+    - name: Ensure package metadata is up to date
+      yum:
+        name: "*"
+        state: latest
+
+    # ---------- Apache HTTPD ----------
+    - name: Install Apache HTTPD
+      yum:
+        name: httpd
+        state: present
+
+    - name: Start and enable Apache HTTPD
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Create simple Apache index page
+      copy:
+        dest: /var/www/html/index.html
+        content: "Hello from Apache on {{ inventory_hostname }}"
+
+    # ---------- Nginx ----------
+    - name: Install Nginx
+      yum:
+        name: nginx
+        state: present
+
+    - name: Start and enable Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Create simple Nginx index page
+      copy:
+        dest: /usr/share/nginx/html/index.html
+        content: "Hello from Nginx on {{ inventory_hostname }}"
+
+    # ---------- Tomcat ----------
+    - name: Install Java (required for Tomcat)
+      yum:
+        name: java-11-openjdk
+        state: present
+
+    - name: Create Tomcat installation directory
+      file:
+        path: "{{ tomcat_install_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Download Tomcat archive
+      get_url:
+        url: "https://downloads.apache.org/tomcat/tomcat-9/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
+        dest: "/tmp/apache-tomcat-{{ tomcat_version }}.tar.gz"
+        mode: "0644"
+
+    - name: Extract Tomcat archive
+      unarchive:
+        src: "/tmp/apache-tomcat-{{ tomcat_version }}.tar.gz"
+        dest: "{{ tomcat_install_dir }}"
+        remote_src: yes
+        creates: "{{ tomcat_install_dir }}/apache-tomcat-{{ tomcat_version }}"
+
+    - name: Symlink tomcat latest
+      file:
+        src: "{{ tomcat_install_dir }}/apache-tomcat-{{ tomcat_version }}"
+        dest: "{{ tomcat_install_dir }}/latest"
+        state: link
+        force: yes
+
+    - name: Create simple Tomcat index page
+      copy:
+        dest: "{{ tomcat_install_dir }}/latest/webapps/ROOT/index.html"
+        content: "Hello from Tomcat on {{ inventory_hostname }}"
+
+    - name: Create Tomcat systemd service file
+      copy:
+        dest: /etc/systemd/system/{{ tomcat_service_name }}.service
+        content: |
+          [Unit]
+          Description=Apache Tomcat Web Application Container
+          After=network.target
+
+          [Service]
+          Type=forking
+
+          Environment="JAVA_HOME=/usr/lib/jvm/jre"
+          Environment="CATALINA_PID={{ tomcat_install_dir }}/latest/temp/tomcat.pid"
+          Environment="CATALINA_HOME={{ tomcat_install_dir }}/latest"
+          Environment="CATALINA_BASE={{ tomcat_install_dir }}/latest"
+
+          ExecStart={{ tomcat_install_dir }}/latest/bin/startup.sh
+          ExecStop={{ tomcat_install_dir }}/latest/bin/shutdown.sh
+
+          User=root
+          Group=root
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Reload systemd daemon for Tomcat
+      systemd:
+        daemon_reload: yes
+
+    - name: Start and enable Tomcat service
+      service:
+        name: "{{ tomcat_service_name }}"
+        state: started
+        enabled: yes

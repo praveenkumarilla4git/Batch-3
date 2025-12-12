@@ -1,0 +1,205 @@
+#######################################################################
+# WSL + Ansible + 2 EC2 (Amazon Linux 2023)
+# - managed_node_key : EC2 using SSH key batch3.pem
+# - managed_node_pw  : EC2 using SSH password DevOps321
+# Goal: Install Git, Python3, Nginx, Apache HTTPD on both nodes
+#######################################################################
+
+#########################
+# 0. PREREQUISITES (WSL)
+#########################
+
+# In Ubuntu WSL:
+sudo apt update
+sudo apt install -y ansible sshpass
+ansible --version
+
+# Create Ansible home:
+mkdir -p ~/ansible_home/keys ~/ansible_home/inventory ~/ansible_home/playbooks
+cd ~/ansible_home
+
+
+#########################################
+# 1. EC2 INSTANCE 1 – KEY-BASED (AWS UI)
+#########################################
+# In AWS Console:
+# - Name: managed_node_key
+# - AMI: Amazon Linux 2023 (Free tier)
+# - Type: t2.micro
+# - Key pair: create new → Name: batch3 → format: .pem → download batch3.pem
+# - Security group: allow SSH (22) from your IP
+# - Launch and note PUBLIC IP, e.g. 13.216.3.44
+
+# Move key into WSL (adjust <YourWindowsUser> and WSL username):
+cp /mnt/c/Users/<YourWindowsUser>/Desktop/batch3.pem ~/ansible_home/keys/
+chmod 400 ~/ansible_home/keys/batch3.pem
+ls -ltr keys
+
+# Test SSH (KEY host):
+ssh -i ~/ansible_home/keys/batch3.pem ec2-user@13.216.3.44
+exit
+
+
+###############################################
+# 2. EC2 INSTANCE 2 – PASSWORD-BASED (AWS UI)
+###############################################
+# In AWS Console:
+# - Name: managed_node_pw
+# - AMI: Amazon Linux 2023 (Free tier)
+# - Type: t2.micro
+# - Configure so SSH login for ec2-user uses password DevOps321
+# - Security group: allow SSH (22) from your IP
+# - Note PUBLIC IP, e.g. 44.200.113.195
+
+# Test SSH (PASSWORD host) from WSL:
+ssh ec2-user@44.200.113.195
+# type: yes to accept fingerprint
+# password: DevOps321
+exit
+
+
+#########################################
+# 3. INVENTORY FOR BOTH INSTANCES
+#########################################
+
+cd ~/ansible_home
+
+cat > inventory/hosts.ini << 'EOF'
+[managed_nodes]
+managed_node_key ansible_host=13.216.3.44 ansible_user=ec2-user ansible_ssh_private_key_file=/home/prave/ansible_home/keys/batch3.pem
+
+[managed_nodes_password]
+managed_node_pw ansible_host=44.200.113.195 ansible_user=ec2-user ansible_password=DevOps321 ansible_become_password=DevOps321 ansible_port=22 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+EOF
+
+# IMPORTANT:
+# - Replace IPs (13.216.3.44 / 44.200.113.195) with your actual public IPs.
+# - Replace /home/prave with your real WSL home if username != prave.
+
+# Test connectivity:
+
+# Key-based host:
+ansible managed_nodes -i inventory/hosts.ini -m ping
+
+# Password-based host:
+ansible managed_nodes_password -i inventory/hosts.ini -m ping
+
+
+#########################################
+# 4. PLAYBOOK TO INSTALL TOOLS
+#    (Git, Python3, Nginx, Apache HTTPD)
+#########################################
+
+cd ~/ansible_home/playbooks
+
+cat > install_gitpb.yml << 'EOF'
+---
+- name: Install Git, Python3, Nginx and Apache HTTPD on all EC2 nodes
+  hosts: managed_nodes,managed_nodes_password
+  become: yes
+  tasks:
+    - name: Install git
+      yum:
+        name: git
+        state: present
+
+    - name: Install python3
+      yum:
+        name: python3
+        state: present
+
+    - name: Install nginx
+      yum:
+        name: nginx
+        state: present
+
+    - name: Install Apache HTTPD
+      yum:
+        name: httpd
+        state: present
+EOF
+
+ls -ltr
+cat install_gitpb.yml
+
+
+#########################################
+# 5. RUN PLAYBOOK ON BOTH NODES
+#########################################
+
+cd ~/ansible_home
+
+ansible-playbook -i inventory/hosts.ini playbooks/install_gitpb.yml
+
+# Expected: for BOTH managed_node_key and managed_node_pw
+# TASK [Install git]      ok/changed
+# TASK [Install python3]  ok/changed
+# TASK [Install nginx]    ok/changed
+# TASK [Install Apache HTTPD] ok/changed
+
+
+#########################################
+# 6. VERIFY INSTALLATIONS
+#########################################
+
+# Using Ansible ad-hoc commands:
+
+ansible managed_nodes -i inventory/hosts.ini -m shell -a "git --version && python3 --version"
+ansible managed_nodes_password -i inventory/hosts.ini -m shell -a "git --version && python3 --version"
+
+ansible managed_nodes -i inventory/hosts.ini -m shell -a "nginx -v"
+ansible managed_nodes_password -i inventory/hosts.ini -m shell -a "nginx -v"
+
+ansible managed_nodes -i inventory/hosts.ini -m shell -a "httpd -v"
+ansible managed_nodes_password -i inventory/hosts.ini -m shell -a "httpd -v"
+
+# Or manually on each EC2:
+
+# Key-based:
+ssh -i ~/ansible_home/keys/batch3.pem ec2-user@13.216.3.44
+git --version
+python3 --version
+nginx -v
+httpd -v
+exit
+
+# Password-based:
+ssh ec2-user@44.200.113.195
+# password: DevOps321
+git --version
+python3 --version
+nginx -v
+httpd -v
+exit
+
+
+#######################################################################
+# END – WSL + Ansible + 2 EC2 (key + password) installing common tools
+#######################################################################
+
+
+
+
+===========================================================================
+Login to AWS
+Create a new EC2 instance using key based
+Login into the machine using ssh -i batch3 ec2-user@<public-ip>
+now, give the below command to change the passwd 
+sudo passwd ec2-user
+this will ask for new password
+give DevOps321 and confirm again
+then logout
+try to login again using the below
+ssh ec2-user@<Public IP>
+this wont work because, even though we changed/reset the password, ec2-user will allow only using key based
+so, we will be trying to change one setting so as to make it ask for password at login for that we need to change the below setting in the below file
+
+enter into sudo
+sudo su -
+cd /etc/ssh
+vim sshd_config
+#make the below change PasswordAuthentication no to PasswordAuthentication yes#
+PasswordAuthentication yes 
+now give below command
+service sshd restart
+
