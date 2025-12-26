@@ -1,0 +1,98 @@
+cd Ops-Infra
+terraform apply --auto-approve
+Get the IP: Copy the public_ip from the output (e.g., 54.x.x.x).
+
+
+Step 2: Prepare the Ansible Workspace (WSL)
+⚠️ Important: These commands must be run inside your Ubuntu (WSL) terminal, not PowerShell.
+
+Create Directory:
+
+mkdir -p ~/DevOps/Ops-Ansible
+cd ~/DevOps/Ops-Ansible
+
+Copy your Key: (Replace [YOU] with your Windows username)
+
+cp /mnt/c/Users/[YOU]/Downloads/tf-key2.pem .
+chmod 400 tf-key2.pem
+
+Step 3: Create the Inventory
+
+This file tells Ansible where to connect.
+
+File Name: hosts.ini
+
+Content:
+
+[webservers]
+# REPLACE WITH YOUR TERRAFORM OUTPUT IP
+54.x.x.x ansible_user=ubuntu ansible_ssh_private_key_file=./tf-key2.pem ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+
+Step 4: Create the Playbook
+This file tells Ansible what to do. It installs Docker, clones your code, and runs the container.
+
+File Name: deploy.yml
+
+Content:
+
+---
+- name: Deploy Ops-Pipeline-Demo
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Docker and Git
+      apt:
+        name:
+          - docker.io
+          - git
+          - python3
+        state: present
+
+    - name: Clone the Application Code from GitHub
+      git:
+        repo: 'https://github.com/praveenkumarilla4git/Ops-Pipeline-Demo.git'
+        dest: /home/ubuntu/app
+        version: main
+        force: yes
+
+    - name: Run Python script to generate index.html
+      command: python3 app.py
+      args:
+        chdir: /home/ubuntu/app/ApplicationCode
+
+    - name: Stop existing container (if any)
+      shell: docker rm -f my-website || true
+
+    - name: Run Nginx Container
+      shell: |
+        docker run -d --name my-website -p 80:80 \
+        -v /home/ubuntu/app/ApplicationCode/index.html:/usr/share/nginx/html/index.html \
+        nginx
+		
+		
+		
+Step 5: Execute the Deployment
+Run this command in your WSL terminal to trigger the deployment.
+
+ansible-playbook -i hosts.ini deploy.yml
+
+What happens:
+
+Ansible connects to the IP in hosts.ini.
+
+It installs Docker.
+
+It pulls your latest code from GitHub.
+
+It generates the HTML using your Python script.
+
+It starts the Nginx container on Port 80.
+
+Step 6: Verify
+Open your browser and go to http://<YOUR_IP>. You should see the "Deployment Successful!" page.
